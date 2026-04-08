@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>京祥和轩老北京涮羊肉 · 回头客榜单第一冲击方案</title>
+  <style>
+    :root {
+      --red: #C8282D;
+      --red-light: #F5E6E7;
+      --red-mid: #E8A0A2;
+      --gold: #D4A017;
+      --gold-light: #FDF6E3;
+      --dark: #1A1A1A;
+      --gray: #5A5A5A;
+      --gray-light: #F4F4F4;
+      --border: #E0E0E0;
+      --green: #2E8B57;
+      --orange: #E8780A;
+      --blue: #1976D2;
+      --purple: #7B1FA2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+      background: #F8F5F0;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      background: linear-gradient(135deg, #4A90E2 0%, #7B1FA2 40%, #C8282D 80%, #D4A017 100%);
+      color: white;
+      padding: 60px 40px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '回头客';
+      position: absolute;
+      right: -20px; top: -30px;
+      font-size: 200px;
+      font-weight: 900;
+      opacity: 0.06;
+      letter-spacing: 0;
+    }
+    .cover-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .cover h1 {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .cover h1 span { color: #FFD700; }
+    .cover .subtitle {
+      font-size: 16px;
+      opacity: 0.85;
+      margin-bottom: 32px;
+    }
+    .cover-rank-box {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: inline-flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .rank-item { text-align: center; }
+    .rank-item .label { font-size: 11px; opacity: 0.8; margin-bottom: 4px; }
+    .rank-item .value { font-size: 22px; font-weight: 900; }
+    .rank-item .highlight { color: #FFD700; }
+    .rank-item .gap { color: #FF6B6B; font-size: 14px; }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 980px; margin: 0 auto; padding: 0 20px 60px; }
+
+    /* ── SECTION ── */
+    .section { margin-top: 48px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .section-num {
+      width: 36px; height: 36px;
+      background: var(--purple);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 15px;
+      flex-shrink: 0;
+    }
+    .section-title { font-size: 22px; font-weight: 800; color: var(--dark); }
+    .section-desc { font-size: 14px; color: var(--gray); margin-left: auto; }
+
+    /* ── 竞争对比卡 ── */
+    .compare-box {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .compare-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-side { flex: 1; padding: 0 10px; }
+    .compare-side.left { text-align: center; border-right: 1px dashed var(--border); }
+    .compare-side.right { text-align: center; }
+    .side-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 11px; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .side-badge.blue { background: #E3F2FD; color: var(--blue); }
+    .side-badge.red { background: #FFEBEE; color: var(--red); }
+    .side-name { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
+    .side-index { font-size: 32px; font-weight: 900; }
+    .side-index.my { color: var(--blue); }
+    .side-index.rival { color: var(--red); }
+    .side-rank { font-size: 12px; color: var(--gray); }
+    .gap-arrow {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid var(--red);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--red);
+      z-index: 10;
+    }
+    .compare-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .metric-item {
+      background: var(--gray-light);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .metric-item.highlight { background: var(--red-light); }
+    .metric-item .m-label { font-size: 11px; color: var(--gray); margin-bottom: 6px; }
+    .metric-item .m-value { font-size: 18px; font-weight: 900; color: var(--dark); }
+    .metric-item .m-diff { font-size: 11px; margin-top: 4px; }
+    .metric-item .m-diff.down { color: var(--red); }
+    .metric-item .m-diff.up { color: var(--green); }
+
+    /* ── 权重规则卡片 ── */
+    .weight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .weight-card {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .weight-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 5px; height: 100%;
+      background: var(--purple);
+    }
+    .weight-card .w-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .weight-card .w-name { font-size: 15px; font-weight: 800; }
+    .weight-card .w-pct { font-size: 22px; font-weight: 900; color: var(--purple); }
+    .weight-card p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+    .weight-card .w-formula {
+      margin-top: 10px;
+      background: var(--gray-light);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--gray);
+    }
+
+    /* ── 策略卡片 ── */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .strategy-card {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 20px;
+    }
+    .strategy-card .s-tag {
+      display: inline-block;
+      background: var(--purple);
+      color: white;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 11px; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .strategy-card h4 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .strategy-card p { font-size: 13px; color: var(--gray); line-height: 1.6; margin-bottom: 10px; }
+    .strategy-card ul { padding-left: 18px; }
+    .strategy-card ul li { font-size: 13px; color: var(--gray); margin-bottom: 4px; }
+    .strategy-card ul li strong { color: var(--dark); }
+
+    /* ── 阶段时间轴 ── */
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--purple), var(--blue));
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 24px;
+      background: white;
+      border-radius: 12px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -24px; top: 20px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--purple);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--purple);
+    }
+    .tl-phase { font-size: 11px; font-weight: 700; color: var(--purple); margin-bottom: 6px; }
+    .tl-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .tl-kpi {
+      background: var(--gray-light);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-size: 12px;
+    }
+    .tl-kpi strong { color: var(--dark); }
+
+    /* ── 代金券策略表 ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    thead { background: var(--purple); color: white; }
+    th { padding: 12px 16px; font-size: 13px; text-align: left; }
+    td { padding: 11px 16px; font-size: 13px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--gray-light); }
+    .td-up { color: var(--green); font-weight: 700; }
+    .td-hot { color: var(--red); font-weight: 700; }
+
+    /* ── 私域运营卡片 ── */
+    .private-domain-card {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .pd-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .pd-header h4 { font-size: 15px; font-weight: 800; }
+    .pd-badge {
+      background: var(--blue);
+      color: white;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 11px; font-weight: 700;
+    }
+    .pd-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .pd-item {
+      background: var(--gray-light);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .pd-item .pd-icon { font-size: 24px; margin-bottom: 6px; }
+    .pd-item .pd-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .pd-item .pd-desc { font-size: 11px; color: var(--gray); line-height: 1.4; }
+
+    /* ── 数据看板 ── */
+    .data-board {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 16px;
+    }
+    .data-board h3 { font-size: 16px; font-weight: 800; margin-bottom: 16px; }
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .data-item { text-align: center; }
+    .data-item .d-val { font-size: 28px; font-weight: 900; }
+    .data-item .d-label { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+
+    /* ── 响应式 ── */
+    @media (max-width: 680px) {
+      .weight-grid, .strategy-grid, .pd-grid { grid-template-columns: 1fr; }
+      .compare-metrics { grid-template-columns: 1fr; }
+      .data-grid { grid-template-columns: repeat(2, 1fr); }
+      .cover h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-tag">老北京涮羊肉 · 回头客榜单第一冲击方案</div>
+  <h1>京祥和轩 · 4家门店联动<br><span>老北京涮羊肉 · 超越新京熹登顶成都</span></h1>
+  <div class="subtitle">回头客指数：80.88% → 目标90%+ · 对手：新京熹SKP店 89.64%</div>
+  <div class="cover-rank-box">
+    <div class="rank-item">
+      <div class="label">当前排名</div>
+      <div class="value">第2名</div>
+    </div>
+    <div class="rank-item">
+      <div class="label">回头客指数</div>
+      <div class="value highlight">80.88%</div>
+    </div>
+    <div class="rank-item">
+      <div class="label">门店数量</div>
+      <div class="value highlight">4家</div>
+    </div>
+    <div class="rank-item">
+      <div class="label">目标指数</div>
+      <div class="value highlight">90%+</div>
+    </div>
+    <div class="rank-item">
+      <div class="label">核心对手</div>
+      <div class="value">新京熹</div>
+    </div>
+    <div class="rank-item">
+      <div class="label">差距</div>
+      <div class="value gap">-8.76%</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION 1: 竞争态势分析 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">竞争态势与核心差距</div>
+    </div>
+
+    <div class="compare-box">
+      <div class="compare-header">
+        <div class="compare-side left">
+          <div class="side-badge blue">我方</div>
+          <div class="side-name">京祥和轩万科天荟店</div>
+          <div class="side-index my">80.88%</div>
+          <div class="side-rank">全成都老北京火锅 第2名</div>
+        </div>
+        <div class="compare-side right">
+          <div class="side-badge red">对手</div>
+          <div class="side-name">新京熹 SKP店</div>
+          <div class="side-index rival">89.64%</div>
+          <div class="side-rank">全成都老北京火锅 第1名</div>
+        </div>
+      </div>
+      <div class="compare-metrics">
+        <div class="metric-item highlight">
+          <div class="m-label">代金券销量（半年）</div>
+          <div class="m-value">1.4万+</div>
+          <div class="m-diff down">⚠️ 仅相当于对手 4.2%</div>
+        </div>
+        <div class="metric-item highlight">
+          <div class="m-label">大众点评评分</div>
+          <div class="m-value">4.6 ★</div>
+          <div class="m-diff down">⚠️ 低于对手</div>
+        </div>
+        <div class="metric-item">
+          <div class="m-label">连锁门店数量</div>
+          <div class="m-value">4家</div>
+          <div class="m-diff up">vs 对手多店连锁</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--red-light);border-radius:14px;border:1px solid var(--red);padding:20px">
+      <h3 style="font-size:15px;font-weight:800;color:var(--red);margin-bottom:12px">⚡ 核心洞察：老北京涮羊肉品类 · 代金券+5星评分是胜负手</h3>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8">
+        新京熹代金券半年销量33万+，而我方仅1.4万+，差距高达<strong style="color:var(--red)">23.6倍</strong>。这说明对方通过代金券/团购实现了极高的复购转化率，而这正是回头客榜的核心指标——<strong style="color:var(--dark)">30天内二次到店</strong>。<br><br>
+        京祥和轩以<strong>老北京涮羊肉</strong>为核心品类，必吃菜（酸菜、羊肉串）已具备差异化记忆点，可依托免费菜+橙V用户活动快速引流并获取高质量点评，推动5星评分突破。<br><br>
+        <strong style="color:var(--dark)">胜负三键</strong>：①平台次卡/黑钻月卡锁定复购；②免费菜+橙V活动激活5星评分增量；③4家门店联动，以「老北京涮羊肉必吃榜」为目标品牌矩阵加权。
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 2: 回头客榜单算法解析 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">回头客榜单计算规则与权重</div>
+    </div>
+
+    <div class="weight-grid">
+      <div class="weight-card">
+        <div class="w-top">
+          <div class="w-name">消费频次</div>
+          <div class="w-pct">40%</div>
+        </div>
+        <p><strong>权重最高的核心指标</strong>。统计30天内到店≥2次的顾客人数。只看最近两次到店间隔，与年度复购率不同，更聚焦短期回头行为。</p>
+        <div class="w-formula">回头客人数 = 近30天内二次到店顾客数</div>
+      </div>
+      <div class="weight-card">
+        <div class="w-top">
+          <div class="w-name">历史消费</div>
+          <div class="w-pct">30%</div>
+        </div>
+        <p><strong>半年内消费总额</strong>。反映顾客忠诚度和长期贡献度，高消费顾客的回头行为权重更高。建议提升客单价或推动储值沉淀。</p>
+        <div class="w-formula">历史消费 = 近6个月总消费金额 × 系数</div>
+      </div>
+      <div class="weight-card">
+        <div class="w-top">
+          <div class="w-name">客单价</div>
+          <div class="w-pct">20%</div>
+        </div>
+        <p><strong>单次消费金额</strong>。北京涮肉客单价本身较高（我方¥122），此项是天然优势。可进一步通过套餐组合提高客单价。</p>
+        <div class="w-formula">客单价 = 平均每单消费金额</div>
+      </div>
+      <div class="weight-card">
+        <div class="w-top">
+          <div class="w-name">店铺评分</div>
+          <div class="w-pct">10%</div>
+        </div>
+        <p><strong>直接影响排名顺序</strong>。评分4.7以上可获得排名加成。我方4.6仍有提升空间，需同步推进好评维护。</p>
+        <div class="w-formula">评分加成 = 综合评分 ≥ 4.7 ? +5% : 0</div>
+      </div>
+    </div>
+
+    <div style="background:var(--blue-light);border-radius:14px;border:1px solid var(--blue);padding:20px;margin-top:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:12px;color:var(--blue)">💡 数据洞察：从消费频次权重看复购策略</h4>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8">
+        消费频次占40%权重，是回头客榜单的核心。基于1-3月数据分析，4家门店30天复购率普遍偏低（约25%），与目标70%+存在巨大差距。<strong style="color:var(--blue)">平台次卡（150代200元·可叠2张）</strong>的设计逻辑正是通过高性价比+多次使用锁定30天内二次到店，直击算法核心。同时，黑钻月福利卡通过储值沉淀提升历史消费权重，形成短期复购+长期沉淀的双轮驱动。
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: 三大核心策略 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">回头客指数提升 · 三大核心策略</div>
+    </div>
+
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <div class="s-tag">策略一</div>
+        <h4>平台次卡 · 锁定短期复购</h4>
+        <p><strong>核心思路：</strong>用高性价比次卡替代一次性代金券，通过「多次使用+可叠加」机制，强绑定30天内二次到店。</p>
+        <ul>
+          <li><strong>平台次卡</strong>：150元代200元消费（7.5折），可用3次，优于竞品力度</li>
+          <li><strong>叠加规则</strong>：每次可叠加使用2张次卡，单次最高抵用400元</li>
+          <li><strong>双人/四人套餐券</strong>：固定套餐代金券，降低决策门槛，提升购买转化</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-tag">策略二</div>
+        <h4>平台黑钻会员月福利卡</h4>
+        <p><strong>核心思路：</strong>参考享月汤皇龙卡模式，用「月月有福利」机制提升用户长期粘性与历史消费权重。</p>
+        <ul>
+          <li><strong>黑钻会员月福利卡</strong>：¥999购买¥1515权益（价值比约1:1.5）</li>
+          <li><strong>每月一道免费「尖货儿」</strong>：精选招牌高价值菜品，每月到店即享</li>
+          <li><strong>会员储值沉淀</strong>：购卡金额计入会员历史消费，权重提升显著</li>
+          <li><strong>专属VIP群</strong>：购卡顾客入驻专属群，享新品优先品鉴权益</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-tag">策略三</div>
+        <h4>私域流量运营 · 提升触达效率</h4>
+        <p><strong>核心思路：</strong>建立私域社群，实现精准触达和持续互动，将到店顾客转化为社群成员。</p>
+        <ul>
+          <li><strong>企业微信私域群</strong>：到店顾客扫码入群，分层建立次卡群/黑钻群</li>
+          <li><strong>会员专属群</strong>：黑钻会员进入VIP群，专属福利+每月尖货儿提醒</li>
+          <li><strong>私域团购秒杀</strong>：群内定期发布套餐秒杀，提升复购转化</li>
+          <li><strong>标签化管理</strong>：按消费频次/客单价/喜好标签，精准推送个性化优惠</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-tag">策略四</div>
+        <h4>会员体系升级 · 锁定长期价值</h4>
+        <p><strong>核心思路：</strong>完善会员体系，让顾客有长期留存动力，历史消费指标自然提升。</p>
+        <ul>
+          <li><strong>会员等级体系</strong>：青铜/白银/黄金/黑钻，等级越高享更多权益</li>
+          <li><strong>黑钻月福利卡</strong>：最高权益等级，月月享免费尖货儿+专属服务</li>
+          <li><strong>生日特权</strong>：会员生日当月免费锅底1份+9折优惠</li>
+          <li><strong>季度品鉴会</strong>：黑钻会员每季度受邀参加新品品鉴会</li>
+          <li><strong>专属客服</strong>：黄金以上会员配备专属客服经理</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: 平台产品运营SOP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">平台产品运营标准流程</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>环节</th>
+          <th>执行动作</th>
+          <th>责任人</th>
+          <th>关键指标</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. 次卡上线</strong></td>
+          <td>平台上架「150代200」次卡，3次使用，可叠加2张，对标竞品力度更优</td>
+          <td>运营经理</td>
+          <td class="td-hot">首月销量 ≥3000张</td>
+        </tr>
+        <tr>
+          <td><strong>2. 黑钻卡推广</strong></td>
+          <td>推出¥999购¥1515月福利卡，多渠道宣传，每月免费尖货儿为核心卖点</td>
+          <td>运营经理</td>
+          <td class="td-hot">首月销量 ≥200张</td>
+        </tr>
+        <tr>
+          <td><strong>3. 套餐券上架</strong></td>
+          <td>双人/四人套餐代金券同步上线，降低首购门槛</td>
+          <td>推广专员</td>
+          <td>上架渠道 ≥3个</td>
+        </tr>
+        <tr>
+          <td><strong>4. 店内转化</strong></td>
+          <td>服务员结账时推荐次卡：「下次叠2张更划算」，账单夹放置物料</td>
+          <td>店长/前厅主管</td>
+          <td class="td-up">店内转化率 ≥25%</td>
+        </tr>
+        <tr>
+          <td><strong>5. 私域推送</strong></td>
+          <td>企业微信每周推送次卡/月卡活动，VIP群每月推送尖货儿兑换提醒</td>
+          <td>私域运营</td>
+          <td>私域打开率 ≥40%</td>
+        </tr>
+        <tr>
+          <td><strong>6. 数据监控</strong></td>
+          <td>每日监控次卡核销量与复购回流率，优化产品及推广策略</td>
+          <td>数据专员</td>
+          <td class="td-up">月核销率 ≥60%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="background:var(--gold-light);border-radius:14px;border:1px solid var(--gold);padding:20px;margin-top:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:12px;color:#7A4000">📊 数据支撑：基于1-3月团购业务分析</h4>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#7A4000;margin-bottom:10px">团购业务现状</div>
+          <ul style="padding-left:16px">
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">1-3月整体团购收入、核销金额和到店人数持续下行</li>
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">仅麓镇店3月团购收入实现正增长，且补贴大幅减少，说明套餐本身竞争力强</li>
+            <li style="font-size:13px;color:var(--gray)">天府二街店补贴持续加码，但团购收入和到店人数没有同步提升，投入产出效果不理想</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#7A4000;margin-bottom:10px">次卡优势验证</div>
+          <ul style="padding-left:16px">
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">部分门店对补贴依赖偏高，一旦减少补贴营收就受到明显影响</li>
+            <li style="font-size:13px;color:var(--gray)">次卡模式通过「3次使用+可叠加」减少对单次补贴的依赖，形成复购闭环</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: 私域运营执行方案 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">私域流量运营执行方案</div>
+    </div>
+
+    <div class="private-domain-card">
+      <div class="pd-header">
+        <h4>企业微信私域社群建设</h4>
+        <div class="pd-badge">核心抓手</div>
+      </div>
+      <p style="font-size:13px;color:var(--gray)">到店顾客扫码入群，建立私域流量池，实现精准触达和持续互动。</p>
+      <div class="pd-grid">
+        <div class="pd-item">
+          <div class="pd-icon">🎫</div>
+          <div class="pd-name">次卡专属群</div>
+          <div class="pd-desc">购买次卡顾客优先引入，享专属核销提醒与限时活动</div>
+        </div>
+        <div class="pd-item">
+          <div class="pd-icon">💎</div>
+          <div class="pd-name">黑钻VIP群</div>
+          <div class="pd-desc">月福利卡会员专属群，每月尖货儿兑换提醒+新品优先品鉴</div>
+        </div>
+        <div class="pd-item">
+          <div class="pd-icon">🎁</div>
+          <div class="pd-name">专属福利</div>
+          <div class="pd-desc">群内每周发布套餐秒杀，会员权益精准触达</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="private-domain-card">
+      <div class="pd-header">
+        <h4>会员分级管理体系</h4>
+        <div class="pd-badge">长期锁定</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px">
+        <div style="background:linear-gradient(135deg,#CD7F32,#E8C39E);border-radius:12px;padding:16px;text-align:center;color:white">
+          <div style="font-size:20px;font-weight:900">青铜</div>
+          <div style="font-size:11px;margin-top:4px">入会即送50元券</div>
+          <div style="font-size:10px;margin-top:8px;opacity:0.9">储值门槛：¥200</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#C0C0C0,#E8E8E8);border-radius:12px;padding:16px;text-align:center;color:#333">
+          <div style="font-size:20px;font-weight:900">白银</div>
+          <div style="font-size:11px;margin-top:4px">生日9折+小料</div>
+          <div style="font-size:10px;margin-top:8px;opacity:0.7">储值门槛：¥500</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#FFD700,#FFF8DC);border-radius:12px;padding:16px;text-align:center;color:#8B4513">
+          <div style="font-size:20px;font-weight:900">黄金</div>
+          <div style="font-size:11px;margin-top:4px">专属客服经理</div>
+          <div style="font-size:10px;margin-top:8px;opacity:0.7">储值门槛：¥1000</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border-radius:12px;padding:16px;text-align:center;color:#FFD700;border:2px solid #FFD700">
+          <div style="font-size:20px;font-weight:900">💎 黑钻</div>
+          <div style="font-size:11px;margin-top:4px">月月享免费尖货儿</div>
+          <div style="font-size:10px;margin-top:4px;color:rgba(255,215,0,0.8)">¥999购¥1515权益</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: 阶段作战时间轴 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">阶段作战时间轴</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-phase">阶段一 · 4月 — 5月（基础夯实）</div>
+        <div class="tl-title">次卡/黑钻卡上线 + 免费菜橙V活动启动 + 必吃菜申报</div>
+        <p style="font-size:13px;color:var(--gray)">上线平台次卡（150代200元）和黑钻月福利卡；4家门店同步启动免费菜+橙V活动（澳洲安格斯肥牛为主），推进「涮羊肉/酸菜」必吃菜申报。</p>
+        <div class="tl-kpi">
+          <strong>阶段KPI：</strong> 次卡销量≥3000张，黑钻卡销量≥200张，月新增橙V评价≥160条，万科天荟店评分达4.7+，必吃菜申报提交
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">阶段二 · 6月 — 8月（增长爆发）</div>
+        <div class="tl-title">五一节点爆破 + 必吃菜认证到手 + 评分全店4.7+</div>
+        <p style="font-size:13px;color:var(--gray)">五一期间推出次卡叠加活动，免费菜切换为沙葱羊肉；必吃菜认证落地「涮羊肉」标签，全店评分达标，回头客指数快速攀升。</p>
+        <div class="tl-kpi">
+          <strong>阶段KPI：</strong> 代金券销量达到5万+，私域群人数突破2000人，全店评分4.7+，必吃菜认证≥2家门店，回头客指数85%+
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">阶段三 · 9月 — 11月（反超冲刺）</div>
+        <div class="tl-title">国庆节点 + 羊蝎子免费菜秋冬主推 + 4店全面5星</div>
+        <p style="font-size:13px;color:var(--gray)">国庆期间推出黑钻会员专属套餐，免费菜切换为草原羊蝎子（秋冬季）；4家门店5星全面达标，必吃菜「涮羊肉+酸菜」认证全店覆盖，冲击回头客榜第一。</p>
+        <div class="tl-kpi">
+          <strong>阶段KPI：</strong> 代金券销量达到15万+，私域群突破5000人，4家门店评分全部4.7+，必吃菜认证4家门店全覆盖，回头客指数90%+
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">阶段四 · 12月（守擂巩固）</div>
+        <div class="tl-title">年底冲刺 + 长期护城河</div>
+        <p style="font-size:13px;color:var(--gray)">年底大促巩固第一位置，建立长效运营机制，确保持续领跑。</p>
+        <div class="tl-kpi">
+          <strong>阶段KPI：</strong> 代金券销量达到20万+，私域群人数突破8000人，30天复购率提升至70%+，回头客指数95%+ 🏆
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: 数据追踪看板 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">关键指标追踪看板</div>
+    </div>
+
+    <div class="data-board">
+      <h3>📊 2026年回头客冲击目标</h3>
+      <div class="data-grid">
+        <div class="data-item">
+          <div class="d-val">80.88%</div>
+          <div class="d-label">当前回头客指数</div>
+        </div>
+        <div class="data-item">
+          <div class="d-val">90%+</div>
+          <div class="d-label">目标回头客指数</div>
+        </div>
+        <div class="data-item">
+          <div class="d-val">1.4万+</div>
+          <div class="d-label">当前代金券销量</div>
+        </div>
+        <div class="data-item">
+          <div class="d-val">20万+</div>
+          <div class="d-label">目标代金券销量</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-top:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:14px">📈 月度追踪指标</h4>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="background:var(--gray-light);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:18px;font-weight:900;color:var(--purple)">25%→70%+</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:4px">30天复购率目标</div>
+        </div>
+        <div style="background:var(--gray-light);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:18px;font-weight:900;color:var(--purple)">500→8000</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:4px">私域群人数目标</div>
+        </div>
+        <div style="background:var(--gray-light);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:18px;font-weight:900;color:var(--orange)">0%</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:4px">未回复差评数</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: 风险提示 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">风险提示与应对</div>
+    </div>
+
+    <div style="background:var(--gray-light);border-radius:14px;padding:20px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:12px">⚠️ 核心风险</h4>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8">
+        1. <strong>过度依赖优惠</strong>：若长期以高折扣吸引复购，可能损害品牌利润率和品牌形象。建议将优惠重心放在<strong>储值/会员体系</strong>而非纯粹折扣券上。<br><br>
+        2. <strong>私域运营成本</strong>：企业微信运营需要专人维护，若投入不足可能导致活跃度下降。建议配备1-2名专职私域运营人员。<br><br>
+        3. <strong>竞品跟进</strong>：新京熹可能跟进我们的代金券策略，需要持续创新产品形态，保持竞争优势。<br><br>
+        4. <strong>数据偏差</strong>：回头客榜单数据可能存在延迟或统计口径差异，需同步观察经营参谋数据，交叉验证。
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="margin-top:48px;padding:24px;background:var(--dark);color:rgba(255,255,255,0.6);border-radius:14px;font-size:12px;line-height:1.8">
+    <strong style="color:white">京祥和轩老北京涮羊肉 · 4家门店回头客榜单第一冲击方案</strong><br>
+    执行周期：2026年4月 — 12月 · 目标：回头客指数90%+，超越新京熹登顶成都老北京涮羊肉回头客榜<br>
+    <br>
+    <em style="color:rgba(255,255,255,0.4)">核心策略：①平台次卡（150代200·可叠2张）+ 黑钻月福利卡（999购1515权益）②私域流量运营（企业微信群+会员等级）③30天复购激励与长期会员体系建设</em>
+  </div>
+
+</div>
+</body>
+</html>
