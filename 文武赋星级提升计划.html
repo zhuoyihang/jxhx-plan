@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文武赋·川菜餐厅 — 星级提升计划</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF6B35;
+      --orange-light: #FFF3EE;
+      --orange-mid: #FF8C5A;
+      --gold: #F5A623;
+      --gold-light: #FFF9E6;
+      --red: #E84B4B;
+      --green: #27AE60;
+      --blue: #2980B9;
+      --gray: #666;
+      --gray-light: #F7F7F7;
+      --border: #EBEBEB;
+      --text: #333;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: #F4F4F4;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ───── 顶部品牌 Banner ───── */
+    .hero {
+      background: linear-gradient(135deg, #1A1A2E 0%, #2D1B4E 40%, #1A1A2E 100%);
+      padding: 40px 20px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .hero-sub {
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    .store-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 16px 18px;
+      text-align: left;
+      max-width: 480px;
+      margin: 0 auto;
+      backdrop-filter: blur(6px);
+    }
+    .store-name {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .stars { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .star { color: var(--gold); font-size: 17px; }
+    .star.empty { color: rgba(255,255,255,0.3); }
+    .store-rating { color: var(--gold); font-weight: 700; font-size: 16px; }
+    .store-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    .store-tag {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .store-addr { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 8px; }
+    .store-link { color: var(--orange-mid); font-size: 12px; margin-top: 4px; text-decoration: none; word-break: break-all; }
+
+    /* ───── 通用卡片 ───── */
+    .section {
+      background: #fff;
+      border-radius: 16px;
+      margin: 12px 14px;
+      padding: 22px 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .section-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .section-title { font-size: 17px; font-weight: 700; }
+    .section-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+    /* ───── 目标卡 ───── */
+    .goal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .goal-item {
+      background: var(--gray-light);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .goal-item .label { font-size: 12px; color: var(--gray); margin-bottom: 4px; }
+    .goal-item .val { font-size: 20px; font-weight: 800; }
+    .goal-item .val.now { color: var(--gold); }
+    .goal-item .val.target { color: var(--orange); }
+    .goal-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: linear-gradient(90deg, var(--gold-light), var(--orange-light));
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .arrow-from, .arrow-to { text-align: center; }
+    .arrow-from .rating { font-size: 28px; font-weight: 800; color: var(--gold); }
+    .arrow-to .rating { font-size: 28px; font-weight: 800; color: var(--orange); }
+    .arrow-icon { font-size: 24px; color: var(--orange); }
+    .arrow-label { font-size: 11px; color: var(--gray); margin-top: 2px; }
+
+    /* ───── 免费菜模块 ───── */
+    .free-dish-header {
+      background: linear-gradient(135deg, var(--orange), #FF4500);
+      border-radius: 14px;
+      padding: 18px;
+      color: #fff;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .free-dish-header::after {
+      content: "免费菜";
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      font-size: 64px;
+      font-weight: 900;
+      opacity: 0.08;
+      color: #fff;
+    }
+    .free-dish-header h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .free-dish-header p { font-size: 13px; opacity: 0.9; }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .value-item {
+      background: var(--orange-light);
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .value-item .emoji { font-size: 20px; margin-bottom: 4px; }
+    .value-item .vtitle { font-size: 12px; font-weight: 700; color: var(--orange); }
+    .value-item .vdesc { font-size: 11px; color: var(--gray); margin-top: 3px; line-height: 1.4; }
+
+    .user-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .user-tag {
+      background: var(--orange);
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .user-tag.outline {
+      background: transparent;
+      border: 1.5px solid var(--orange);
+      color: var(--orange);
+    }
+
+    .vip-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .vip-feat {
+      background: #fff7f0;
+      border: 1px solid #FFD4B8;
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .vip-feat .feat-title { font-size: 12px; font-weight: 700; color: var(--orange); margin-bottom: 4px; }
+    .vip-feat .feat-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+    /* ───── 执行路线图 ───── */
+    .roadmap { display: flex; flex-direction: column; gap: 0; }
+    .roadmap-item {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    .roadmap-item:last-child { padding-bottom: 0; }
+    .roadmap-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .roadmap-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .roadmap-line {
+      width: 2px;
+      flex: 1;
+      background: var(--border);
+      margin-top: 4px;
+    }
+    .roadmap-content {
+      flex: 1;
+      padding-top: 6px;
+    }
+    .roadmap-phase {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .roadmap-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .roadmap-body { font-size: 13px; color: var(--gray); }
+    .roadmap-body li { margin-bottom: 4px; list-style: none; padding-left: 14px; position: relative; }
+    .roadmap-body li::before { content: "·"; position: absolute; left: 2px; color: var(--orange); font-weight: 900; }
+
+    /* ───── 恶意行为报备 ───── */
+    .alert-banner {
+      background: linear-gradient(135deg, #E84B4B, #C0392B);
+      border-radius: 14px;
+      padding: 16px 18px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .alert-banner h3 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+    .alert-banner p { font-size: 13px; opacity: 0.9; }
+
+    /* 案例卡片 */
+    .case-card {
+      border: 1.5px solid #FFD4D4;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .case-header {
+      background: #FFF5F5;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .case-badge {
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .case-title { font-size: 14px; font-weight: 700; color: var(--red); }
+    .case-body { padding: 14px; }
+    .case-review {
+      background: #f8f8f8;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+    .review-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .review-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .review-user { font-weight: 600; font-size: 13px; }
+    .review-date { font-size: 11px; color: var(--gray); }
+    .review-stars { color: #E84B4B; font-size: 12px; }
+    .review-scores { font-size: 11px; color: var(--gray); margin: 2px 0 6px; }
+    .review-text { font-size: 14px; color: #333; }
+
+    .fact-list { font-size: 13px; color: var(--gray); margin-bottom: 12px; }
+    .fact-list li { list-style: none; padding: 5px 0 5px 22px; position: relative; border-bottom: 1px dashed var(--border); }
+    .fact-list li:last-child { border-bottom: none; }
+    .fact-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    .evidence-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .evidence-tag {
+      background: #EFF9F4;
+      border: 1px solid #A8E6C4;
+      color: var(--green);
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* 流程步骤 */
+    .process-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--gray-light);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .step-content .step-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .step-content .step-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+    /* 情形分类 */
+    .scenario-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .scenario-item {
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .scenario-item .s-num {
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .scenario-item .s-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .scenario-item .s-desc { font-size: 13px; color: var(--gray); }
+
+    /* 温馨提示框 */
+    .tip-box {
+      background: var(--gold-light);
+      border: 1.5px solid var(--gold);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 13px;
+      color: #7A5C00;
+      line-height: 1.7;
+    }
+    .tip-box strong { color: #B8860B; }
+
+    /* ───── 提升路径图 ───── */
+    .rating-path {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      margin-bottom: 16px;
+    }
+    .rating-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+    }
+    .rating-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .rating-circle.now { background: var(--gold); }
+    .rating-circle.mid { background: var(--orange-mid); }
+    .rating-circle.goal { background: var(--orange); }
+    .rating-path-arrow { color: var(--orange); font-size: 20px; flex-shrink: 0; }
+    .rating-node-label { font-size: 11px; color: var(--gray); text-align: center; }
+
+    /* ───── 数据看板 ───── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .kpi-item {
+      background: var(--gray-light);
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .kpi-item .kpi-num { font-size: 22px; font-weight: 800; color: var(--orange); }
+    .kpi-item .kpi-unit { font-size: 11px; color: var(--gray); }
+    .kpi-item .kpi-label { font-size: 12px; color: var(--gray); margin-top: 4px; }
+
+    /* ───── 底部 ───── */
+    .footer {
+      background: #1A1A2E;
+      padding: 24px 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .footer .f-title { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .footer .f-sub { color: rgba(255,255,255,0.5); font-size: 12px; line-height: 1.8; }
+
+    /* ───── 标签系统 ───── */
+    .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+    .tag-orange { background: var(--orange-light); color: var(--orange); }
+    .tag-green { background: #EFF9F4; color: var(--green); }
+    .tag-red { background: #FFF0F0; color: var(--red); }
+    .tag-blue { background: #EFF4FC; color: var(--blue); }
+
+    /* ───── 分割线 ───── */
+    .divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+    /* ───── 优惠券资格说明 ───── */
+    .coupon-rule-box {
+      background: #F0F7FF;
+      border: 1px solid #B8D4F0;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #2060A0;
+    }
+    .coupon-rule-box strong { display: block; font-size: 14px; margin-bottom: 6px; }
+
+    @media (max-width: 400px) {
+      .goal-grid { grid-template-columns: 1fr; }
+      .vip-box { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .value-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     顶部品牌 Banner
+═══════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">📋 运营提升计划 · 2026</div>
+  <h1>文武赋·星级提升计划</h1>
+  <p class="hero-sub">长效口碑建设 · 免费菜引流 · 恶意行为防护</p>
+
+  <div class="store-card">
+    <div class="store-name">文武赋·川菜餐厅（交子大道店）</div>
+    <div class="stars">
+      <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      <span class="star">★</span><span class="star empty">☆</span>
+      <span class="store-rating">4.5</span>
+      <span class="tag tag-orange" style="margin-left:6px;">目标 4.7+</span>
+    </div>
+    <div class="store-meta">
+      <span class="store-tag">¥124/人</span>
+      <span class="store-tag">川菜</span>
+      <span class="store-tag">交子大道商圈</span>
+    </div>
+    <div class="store-addr">📍 交子大道255号</div>
+    <a class="store-link" href="https://m.dianping.com/shopinfo/l9QOpkAk9N8IhkNc?msource=Appshare2021&utm_source=shop_share&shoptype=10&shopcategoryid=102&cityid=8&isoversea=0" target="_blank">🔗 大众点评店铺链接</a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     核心目标
+═══════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#FFF3EE;">🎯</div>
+    <div>
+      <div class="section-title">核心目标</div>
+      <div class="section-sub">从4.5分迈向4.7+星，建立持久口碑壁垒</div>
+    </div>
+  </div>
+
+  <div class="goal-arrow">
+    <div class="arrow-from">
+      <div class="rating">4.5</div>
+      <div class="stars" style="justify-content:center">
+        <span class="star" style="font-size:14px">★</span><span class="star" style="font-size:14px">★</span>
+        <span class="star" style="font-size:14px">★</span><span class="star" style="font-size:14px">★</span>
+        <span class="star empty" style="font-size:14px">☆</span>
+      </div>
+      <div class="arrow-label">当前评分</div>
+    </div>
+    <div class="arrow-icon">→</div>
+    <div class="arrow-to">
+      <div class="rating">4.7+</div>
+      <div class="stars" style="justify-content:center">
+        <span class="star" style="font-size:14px">★</span><span class="star" style="font-size:14px">★</span>
+        <span class="star" style="font-size:14px">★</span><span class="star" style="font-size:14px">★</span>
+        <span class="star" style="font-size:14px; color:var(--orange)">★</span>
+      </div>
+      <div class="arrow-label">目标评分</div>
+    </div>
+  </div>
+
+  <div class="goal-grid">
+    <div class="goal-item">
+      <div class="label">月新增优质评价</div>
+      <div class="val target">30+</div>
+      <div style="font-size:11px;color:var(--gray);margin-top:4px">带图评价优先</div>
+    </div>
+    <div class="goal-item">
+      <div class="label">免费菜引流用户</div>
+      <div class="val target">50+</div>
+      <div style="font-size:11px;color:var(--gray);margin-top:4px">15日内核销到店</div>
+    </div>
+    <div class="goal-item">
+      <div class="label">平台曝光提升</div>
+      <div class="val target">2x</div>
+      <div style="font-size:11px;color:var(--gray);margin-top:4px">点评首页信息流</div>
+    </div>
+    <div class="goal-item">
+      <div class="label">恶意差评拦截</div>
+      <div class="val target">99%</div>
+      <div style="font-size:11px;color:var(--gray);margin-top:4px">报备+投诉双通道</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     免费菜引流计划
+═══════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#FFF3EE; font-size:20px;">🍽️</div>
+    <div>
+      <div class="section-title">免费菜引流计划</div>
+      <div class="section-sub">植入大众点评「免费菜」产品，精准获客促口碑</div>
+    </div>
+  </div>
+
+  <div class="free-dish-header">
+    <h3>🔥 免费菜 × 文武赋川菜</h3>
+    <p>通过平台奖品分发，将免费菜以奖品形式触达门店3-5KM内优质VIP用户，15日内核销到店打卡，真实带动线上评价增长</p>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">📌 三大合作价值</div>
+  <div class="value-grid">
+    <div class="value-item">
+      <div class="emoji">🚀</div>
+      <div class="vtitle">快速引流</div>
+      <div class="vdesc">15日内核销<br/>增加到店客流</div>
+    </div>
+    <div class="value-item">
+      <div class="emoji">⭐</div>
+      <div class="vtitle">优质用户</div>
+      <div class="vdesc">80%以上为<br/>橙V认证用户</div>
+    </div>
+    <div class="value-item">
+      <div class="emoji">📱</div>
+      <div class="vtitle">增量流量</div>
+      <div class="vdesc">首页固定频道<br/>海量曝光</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       写字楼一人食免费菜定制方案
+  ═══════════════════════════════ -->
+  <div style="background:#FFF9F5;border:2px solid #FF8C5A;border-radius:14px;padding:18px;margin:16px 0;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+      <span style="font-size:22px;">🏢</span>
+      <span style="font-size:16px;font-weight:800;color:var(--orange);">交子大道商圈 · 写字楼一人食定制方案</span>
+    </div>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:14px;">针对周边写字楼密集、午餐一人食需求大的特点，定制「夏季卤味/和牛拌饭+泡菜」免费菜组合，好打包、耐存放、不坨不糊、出餐快、不干扰正餐</p>
+
+    <!-- 推荐方案A -->
+    <div style="background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid #FFE4D6;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span class="tag" style="background:var(--orange);color:#fff;">推荐方案A</span>
+        <span style="font-size:15px;font-weight:700;">🍖 夏季卤味品牌套餐</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:13px;">
+        <div style="background:#FFF5F0;padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">🍗 川香卤味拼盘（小份）</div>
+          <div style="color:var(--gray);font-size:12px;">• 卤鸡爪/鸭翅/豆干<br/>• 可提前卤制，常温/冷藏保存<br/>• 券码核销后取餐，零出餐时间</div>
+        </div>
+        <div style="background:#FFF5F0;padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">🍜 鸡丝凉面（小份）</div>
+          <div style="color:var(--gray);font-size:12px;">• 凉面+鸡丝+黄瓜丝<br/>• 提前拌好，分装盒装<br/>• 夏季开胃，不易坨</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:8px 12px;background:#F0FFF4;border-radius:8px;font-size:12px;color:#27AE60;">
+        ✅ 优势：卤味可上午批量制作，常温保存4小时；凉面提前拌好分装，随取随走，夏季清爽不坨
+      </div>
+    </div>
+
+    <!-- 推荐方案B -->
+    <div style="background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid #FFE4D6;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span class="tag" style="background:var(--gold);color:#fff;">推荐方案B</span>
+        <span style="font-size:15px;font-weight:700;">🥩 和牛拌饭/炒饭套餐</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:13px;">
+        <div style="background:#FFF9E6;padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:#B8860B;margin-bottom:4px;">🍱 和牛拌饭（小份）</div>
+          <div style="color:var(--gray);font-size:12px;">• 和牛片+米饭+海苔碎<br/>• 牛肉薄切，煎30秒即熟<br/>• 便当盒装配，券码核销后取餐</div>
+        </div>
+        <div style="background:#FFF9E6;padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:#B8860B;margin-bottom:4px;">🥒 青城山泉水泡菜</div>
+          <div style="color:var(--gray);font-size:12px;">• 青城山泉水腌制<br/>• 脆爽开胃，川味特色<br/>• 提前一天腌制，随取随走</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:8px 12px;background:#F0FFF4;border-radius:8px;font-size:12px;color:#27AE60;">
+        ✅ 优势：和牛拌饭上午备餐，牛肉现煎30秒即可；青城山泉水泡菜是差异化亮点，提升品牌调性
+      </div>
+    </div>
+
+    <!-- 推荐方案C -->
+    <div style="background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid #FFE4D6;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span class="tag tag-blue" style="background:#2980B9;color:#fff;">推荐方案C</span>
+        <span style="font-size:15px;font-weight:700;">🍛 川味炒饭+泡菜组合</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:13px;">
+        <div style="background:#EFF4FC;padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--blue);margin-bottom:4px;">🍚 芽菜肉末炒饭（小份）</div>
+          <div style="color:var(--gray);font-size:12px;">• 宜宾芽菜+肉末+米饭<br/>• 可提前炒好，保温存放<br/>• 一人食份量，不糊不粘</div>
+        </div>
+        <div style="background:#EFF4FC;padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--blue);margin-bottom:4px;">🥒 跳水泡菜</div>
+          <div style="color:var(--gray);font-size:12px;">• 传统川式跳水泡菜<br/>• 提前腌制，脆爽解腻<br/>• 零现场操作</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:8px 12px;background:#F0FFF4;border-radius:8px;font-size:12px;color:#27AE60;">
+        ✅ 优势：炒饭上午批量制作，保温柜存放；跳水泡菜是川菜标配，顾客认知度高
+      </div>
+    </div>
+
+    <!-- 出餐时段策略 -->
+    <div style="background:#1A1A2E;border-radius:12px;padding:14px;color:#fff;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px;">⏰ 出餐时段策略（不干扰正餐）</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:12px;">
+        <div style="background:rgba(255,255,255,0.1);padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">11:00-13:30 午高峰</div>
+          <div style="opacity:0.8;">主推：卤味+凉面<br/>策略：预制为主，券码核销后取餐</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1);padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">14:00-17:00 下午茶</div>
+          <div style="opacity:0.8;">主推：卤味小食<br/>策略：错峰引流，补充闲时</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1);padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">17:30-19:00 晚市前</div>
+          <div style="opacity:0.8;">主推：和牛拌饭<br/>策略：快速核销，不占桌位</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1);padding:10px;border-radius:8px;">
+          <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">打包外带优先</div>
+          <div style="opacity:0.8;">主推：外带包装<br/>策略：减少堂食压力，提升翻台</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">👑 VIP用户核心特征</div>
+  <div class="vip-box">
+    <div class="vip-feat">
+      <div class="feat-title">🔥 高活跃度</div>
+      <div class="feat-desc">月均活跃天数 >20天，是平台高活用户</div>
+    </div>
+    <div class="vip-feat">
+      <div class="feat-title">✍️ 高写评意愿</div>
+      <div class="feat-desc">每月至少写4条100字评价，具备写评习惯</div>
+    </div>
+    <div class="vip-feat">
+      <div class="feat-title">💰 高消费力</div>
+      <div class="feat-desc">消费频次是普通用户的4.9倍，交易转化率2.5倍</div>
+    </div>
+    <div class="vip-feat">
+      <div class="feat-title">🌿 高种草属性</div>
+      <div class="feat-desc">愿意尝试新事物，擅长分享和种草，评价质量高</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════
+       后厨友好型执行要点
+  ═══════════════════════════════ -->
+  <div style="background:#F0F9F0;border:1px solid #A8D8A8;border-radius:12px;padding:14px;margin-bottom:14px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+      <span style="font-size:20px;">👨‍🍳</span>
+      <span style="font-size:15px;font-weight:700;color:#2E7D32;">后厨友好型执行要点</span>
+    </div>
+    <div style="font-size:13px;color:#333;line-height:1.8;">
+      <div style="margin-bottom:6px;"><strong>🕐 备餐时段：</strong>建议上午9:00-10:30完成免费菜预制（凉菜、便当装配、面胚煮制）</div>
+      <div style="margin-bottom:6px;"><strong>🔥 热灶占用：</strong>免费菜出餐不占用热炒灶台，使用煮面炉/蒸箱/汤桶独立操作</div>
+      <div style="margin-bottom:6px;"><strong>📦 打包动线：</strong>设置独立取餐台，VIP用户电子券码核销后自助取餐，不与正餐服务冲突</div>
+      <div style="margin-bottom:6px;"><strong>👥 人员配置：</strong>高峰期（11:30-13:00）安排1名专职打包员，其余时段由收银兼顾</div>
+      <div><strong>📊 库存管理：</strong>每日限量供应（建议5份/天），避免超卖，保证品质可控（平台免费菜活动一般核销率在10%-20%）</div>
+    </div>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">📋 门店参与规则（推荐设定）</div>
+  <div class="coupon-rule-box">
+    <strong>⚠️ 赠送资格明确标准，避免纠纷</strong>
+    <div>• 免费菜仅限通过平台「免费菜」活动领取奖品的用户核销</div>
+    <div>• 用户须出示有效奖品码，由服务员核验后方可兑换</div>
+    <div>• <strong>不接受口头要求赠送</strong>，未领取奖品码的用户不在赠送范围内</div>
+    <div>• 收藏/打卡奖励另行通知，不可与免费菜活动叠加混淆</div>
+    <div>• 已使用优惠券的消费不额外叠加赠品权益</div>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">📈 预期效果（3个月）</div>
+  <div class="kpi-grid">
+    <div class="kpi-item">
+      <div class="kpi-num">150+</div>
+      <div class="kpi-unit">人次</div>
+      <div class="kpi-label">新增到店用户</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">45+</div>
+      <div class="kpi-unit">条</div>
+      <div class="kpi-label">带图真实评价</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-num">30%</div>
+      <div class="kpi-unit">留评率</div>
+      <div class="kpi-label">VIP用户平均</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     星级提升路线图
+═══════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#FFF9E6;">📅</div>
+    <div>
+      <div class="section-title">长期提升路线图</div>
+      <div class="section-sub">分阶段实施，持续稳定提升星级</div>
+    </div>
+  </div>
+
+  <div class="rating-path">
+    <div class="rating-node">
+      <div class="rating-circle now">4.5</div>
+      <div class="rating-node-label">现在<br/>基础期</div>
+    </div>
+    <div class="rating-path-arrow">→</div>
+    <div class="rating-node">
+      <div class="rating-circle mid">4.6</div>
+      <div class="rating-node-label">1个月<br/>起步期</div>
+    </div>
+    <div class="rating-path-arrow">→</div>
+    <div class="rating-node">
+      <div class="rating-circle mid" style="background:#FF7A3D">4.7</div>
+      <div class="rating-node-label">3个月<br/>增长期</div>
+    </div>
+    <div class="rating-path-arrow">→</div>
+    <div class="rating-node">
+      <div class="rating-circle goal">4.8</div>
+      <div class="rating-node-label">6个月<br/>目标期</div>
+    </div>
+  </div>
+
+  <div class="roadmap">
+    <!-- 阶段1 -->
+    <div class="roadmap-item">
+      <div class="roadmap-left">
+        <div class="roadmap-dot" style="background:var(--gold)">1</div>
+        <div class="roadmap-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <div class="roadmap-phase tag-orange tag">第1阶段 · 第1-4周</div>
+        <div class="roadmap-title">🔧 基础夯实 + 免费菜上线</div>
+        <ul class="roadmap-body">
+          <li>开通大众点评「免费菜」产品，设置第一期菜品（推荐：招牌免费赠品菜）</li>
+          <li>对现有1星/2星差评逐一回复，专业致歉+解释改进措施</li>
+          <li>门店全员培训赠品核销流程，统一话术，明确资格边界</li>
+          <li>完善店铺信息（菜单、环境照片、营业时间等）</li>
+          <li>建立恶意行为报备初步档案，记录可疑用户信息</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 阶段2 -->
+    <div class="roadmap-item">
+      <div class="roadmap-left">
+        <div class="roadmap-dot" style="background:var(--orange-mid)">2</div>
+        <div class="roadmap-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <div class="roadmap-phase tag-orange tag">第2阶段 · 第5-12周</div>
+        <div class="roadmap-title">📈 引流爆发 + 口碑积累</div>
+        <ul class="roadmap-body">
+          <li>免费菜活动持续投放，根据留评率调整菜品选择和库存</li>
+          <li>优化服务流程，在自然消费中引导高满意顾客主动留评</li>
+          <li>对4星以上评价进行点赞回复，增加互动权重</li>
+          <li>针对VIP用户提供差异化服务体验（非赠品，如座位优先安排）</li>
+          <li>收集免费菜用户到店反馈，持续优化菜品质量</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 阶段3 -->
+    <div class="roadmap-item">
+      <div class="roadmap-left">
+        <div class="roadmap-dot" style="background:var(--orange)">3</div>
+        <div class="roadmap-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <div class="roadmap-phase tag-orange tag">第3阶段 · 第13-24周</div>
+        <div class="roadmap-title">🏆 口碑稳固 + 星级冲刺</div>
+        <ul class="roadmap-body">
+          <li>根据累积数据优化免费菜投放策略，侧重高转化时间段</li>
+          <li>建立老顾客回访机制，提升复购和二次评价</li>
+          <li>通过平台活动（团购/优惠券）配合口碑，形成正向循环</li>
+          <li>持续完善恶意行为报备体系，形成标准化SOP</li>
+          <li>阶段性复盘数据，评估星级提升进度，动态调整策略</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     恶意行为报备流程
+═══════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#FFF0F0;">🛡️</div>
+    <div>
+      <div class="section-title">恶意行为报备流程</div>
+      <div class="section-sub">保护门店权益，构建公平营商环境</div>
+    </div>
+  </div>
+
+  <div class="alert-banner">
+    <h3>⚠️ 近期恶意威胁典型案例</h3>
+    <p>门店已遭遇用户以差评为要挟强行索取赠品，需立即启动报备流程，留存证据保护权益</p>
+  </div>
+
+  <!-- 真实案例复盘 -->
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">📌 案例复盘：威胁差评索要赠品</div>
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-badge">威胁勒索</div>
+      <div class="case-title">用户以差评威胁强索赠品</div>
+    </div>
+    <div class="case-body">
+
+      <!-- 实际差评截图还原 -->
+      <div style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:8px;">📋 已产生的匿名差评内容：</div>
+      <div class="case-review">
+        <div class="review-meta">
+          <div class="review-avatar">🙈</div>
+          <div>
+            <div class="review-user">匿名用户</div>
+            <div class="review-date">消费后评价 · 04/05 18:24</div>
+          </div>
+        </div>
+        <div class="review-stars">★☆☆☆☆ · 1星</div>
+        <div class="review-scores">口味: 0.5 &nbsp;|&nbsp; 环境: 0.5 &nbsp;|&nbsp; 服务: 0.5</div>
+        <div class="review-text">太咸，优惠不兑现，味道不行。服务一般</div>
+      </div>
+
+      <!-- 事实还原 -->
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px;">📁 事实还原（门店反馈）：</div>
+      <ul class="fact-list">
+        <li>两位用户消费当天，已按规定赠送一瓶雪碧（收藏打卡奖励）</li>
+        <li>整单消费已使用优惠券，享受了平台折扣</li>
+        <li>用户追加要求免费赠送果盘，但其账号等级为1级，不满足赠送资格</li>
+        <li>门店明确告知资格规则，并提出：两人各写一篇带图评论可额外赠送一个</li>
+        <li>用户拒绝，坚持只写一篇换一个，态度强硬不接受规则</li>
+        <li>用户以语音方式明确威胁：「不送就写差评」</li>
+        <li>门店明确告知：店内有监控，可调取现场记录</li>
+        <li>用户随后发布匿名差评，内容与实际情况严重不符</li>
+      </ul>
+
+      <!-- 可用证据 -->
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px;">🔍 可提交证据：</div>
+      <div class="evidence-row">
+        <span class="evidence-tag">📹 店内监控录像</span>
+        <span class="evidence-tag">🎤 语音威胁录音</span>
+        <span class="evidence-tag">🧾 消费优惠券记录</span>
+        <span class="evidence-tag">📱 收藏打卡赠品记录</span>
+        <span class="evidence-tag">⏱️ 评价时间与消费时间吻合</span>
+      </div>
+
+      <!-- 定性分析 -->
+      <div class="tip-box">
+        <strong>⚖️ 行为定性：属于平台「恶意行为报备」第1类情形</strong>
+        用户以写差评为威胁要求商户提供额外优惠/赠品，属于典型的勒索行为。已满足平台报备条件，建议立即提交报备并同步发起商家后台自助投诉。
+      </div>
+    </div>
+  </div>
+
+  <!-- 报备操作步骤 -->
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">🚀 立即行动：报备操作步骤</div>
+  <div class="process-steps">
+    <div class="step-item">
+      <div class="step-num" style="background:#E84B4B">1</div>
+      <div class="step-content">
+        <div class="step-title">进入商家后台 → 顾客评价页</div>
+        <div class="step-desc">手机端打开大众点评商家后台，找到「顾客评价」入口</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:#E84B4B">2</div>
+      <div class="step-content">
+        <div class="step-title">点击页面右上角「…」→「恶意行为报备」</div>
+        <div class="step-desc">在评价页面找到三点菜单，进入恶意行为报备功能</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:#E84B4B">3</div>
+      <div class="step-content">
+        <div class="step-title">填写详细事经过</div>
+        <div class="step-desc">写明：问题发生时间（04/05）、门店、用户行为（语音威胁、强索赠品）、具体经过</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--orange)">4</div>
+      <div class="step-content">
+        <div class="step-title">提交关键证据信息</div>
+        <div class="step-desc">可提供：美团券码/交易记录截图、监控视频（可申请调取）、收藏打卡赠送记录截图</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--orange)">5</div>
+      <div class="step-content">
+        <div class="step-title">同步发起差评自助投诉</div>
+        <div class="step-desc">在该差评下点击「投诉」，选择「用户以差评要挟商家」类型，上传同等证据</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--green)">6</div>
+      <div class="step-content">
+        <div class="step-title">跟进平台处理结果</div>
+        <div class="step-desc">报备后平台会加强对该用户异常评价的识别，结合更多证据进行综合判定</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 四类恶意行为情形 -->
+  <div class="divider"></div>
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">📋 平台支持报备的四类情形</div>
+  <div class="scenario-grid">
+    <div class="scenario-item" style="background:#FFF0F0;">
+      <div class="s-num" style="color:var(--red)">① 要挟索要优惠/补偿</div>
+      <div class="s-title">本案例所属情形 ✅</div>
+      <div class="s-desc">声称自己是大V、或以写差评来要求商家免费赠送菜品、打折</div>
+    </div>
+    <div class="scenario-item" style="background:#FFF5E6;">
+      <div class="s-num" style="color:var(--gold)">② 疑似同行找茬/恶意攻击</div>
+      <div class="s-title">注意防范</div>
+      <div class="s-desc">疑似同行在消费过程中提出不合理要求，担心离职员工会报复差评</div>
+    </div>
+    <div class="scenario-item" style="background:#F0F7F0;">
+      <div class="s-num" style="color:var(--green)">③ 疑似代运营/黄牛牟利</div>
+      <div class="s-title">提高警惕</div>
+      <div class="s-desc">联系商家提出有偿删评、编造伪造食安问题索要钱财</div>
+    </div>
+    <div class="scenario-item" style="background:#F0F4FF;">
+      <div class="s-num" style="color:var(--blue)">④ 提出违法违规诉求</div>
+      <div class="s-title">坚决拒绝</div>
+      <div class="s-desc">提出要擦边服务或其他违规要求</div>
+    </div>
+  </div>
+
+  <!-- 温馨提示 -->
+  <div class="tip-box" style="margin-top:14px;">
+    <strong>☀️ 温馨提示：保持平和心态，积极应对</strong>
+    恶意顾客只是少数，一条差评的影响是有限的。报备后持续以用心服务积累更多真实好评，以量带质，让优质评价稀释恶意评价的影响。<br/>
+    <span style="color:#B8860B;font-weight:600;">请用平和心态看待顾客反馈，对其中合理的诉求给予回应和照顾。</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     SOP：门店赠品管理规范
+═══════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:#EFF9F4;">📋</div>
+    <div>
+      <div class="section-title">门店赠品管理 SOP</div>
+      <div class="section-sub">统一标准，避免纠纷，保护门店</div>
+    </div>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;">🎁 赠品发放标准化流程</div>
+  <div class="process-steps">
+    <div class="step-item">
+      <div class="step-num" style="background:var(--orange)">1</div>
+      <div class="step-content">
+        <div class="step-title">用户提出赠品请求</div>
+        <div class="step-desc">服务员礼貌询问：「请问您有相关活动奖品码吗？」</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--orange)">2</div>
+      <div class="step-content">
+        <div class="step-title">核验资格</div>
+        <div class="step-desc">核查：① 是否持有有效奖品码 ② 账号等级是否达标 ③ 活动规则是否符合</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--green)">3</div>
+      <div class="step-content">
+        <div class="step-title">符合资格 → 愉快赠送</div>
+        <div class="step-desc">核销奖品码，提供赠品，留存核销记录截图</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:var(--red)">4</div>
+      <div class="step-content">
+        <div class="step-title">不符合资格 → 温和拒绝</div>
+        <div class="step-desc">话术：「非常抱歉，您目前还不符合该活动的赠送条件，欢迎参与我们的XX活动获取资格～」</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="background:#333">5</div>
+      <div class="step-content">
+        <div class="step-title">遭遇威胁 → 立即记录</div>
+        <div class="step-desc">保持冷静，明确告知「店内有监控」，提醒对方行为已被记录，事后立即截图/录音存证，提交报备</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;margin-bottom:10px;margin-top:14px;">📱 标准应对话术</div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="background:#F0FFF4;border-left:3px solid var(--green);padding:12px;border-radius:0 10px 10px 0;font-size:13px;">
+      <strong>✅ 正常拒绝话术：</strong><br/>
+      「您好！非常感谢您的光临。很抱歉，该赠品活动需要持有效奖品码才可核销，您今日已享受了优惠券折扣，我们已赠送了一瓶雪碧作为打卡礼。如需获得更多赠品资格，欢迎关注我们的最新活动哦～」
+    </div>
+    <div style="background:#FFF5F5;border-left:3px solid var(--red);padding:12px;border-radius:0 10px 10px 0;font-size:13px;">
+      <strong>🛡️ 遭遇威胁时话术：</strong><br/>
+      「您好，我理解您的心情，但赠品发放需按平台活动规则执行，我们没有权限突破规定。我们店内全程有监控记录，如您对我们的服务有任何建议，欢迎通过正规渠道反馈，我们会认真对待。」
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     底部总结
+═══════════════════════════════ -->
+<div class="footer">
+  <div class="f-title">文武赋·川菜餐厅（交子大道店）</div>
+  <div class="f-sub">
+    星级提升计划 · 2026年度<br/>
+    免费菜引流 + 口碑积累 + 恶意行为防护<br/>
+    用真诚服务赢得每一颗星
+  </div>
+</div>
+
+</body>
+</html>
