@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>京祥和轩北京涮肉 · 2026全年冲榜作战方案</title>
+  <style>
+    :root {
+      --red: #C8282D;
+      --red-light: #F5E6E7;
+      --red-mid: #E8A0A2;
+      --gold: #D4A017;
+      --gold-light: #FDF6E3;
+      --dark: #1A1A1A;
+      --gray: #5A5A5A;
+      --gray-light: #F4F4F4;
+      --border: #E0E0E0;
+      --green: #2E8B57;
+      --orange: #E8780A;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+      background: #F8F5F0;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      background: linear-gradient(135deg, #8B0000 0%, #C8282D 40%, #E8340A 80%, #D4A017 100%);
+      color: white;
+      padding: 60px 40px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '涮';
+      position: absolute;
+      right: -20px; top: -30px;
+      font-size: 260px;
+      font-weight: 900;
+      opacity: 0.08;
+      letter-spacing: 0;
+    }
+    .cover-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .cover h1 {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .cover h1 span { color: #FFD700; }
+    .cover .subtitle {
+      font-size: 16px;
+      opacity: 0.85;
+      margin-bottom: 32px;
+    }
+    .cover-goals {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cover-goal {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      padding: 14px 22px;
+      text-align: center;
+    }
+    .cover-goal .label { font-size: 12px; opacity: 0.8; margin-bottom: 4px; }
+    .cover-goal .value { font-size: 24px; font-weight: 900; color: #FFD700; }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 980px; margin: 0 auto; padding: 0 20px 60px; }
+
+    /* ── SECTION ── */
+    .section { margin-top: 48px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .section-num {
+      width: 36px; height: 36px;
+      background: var(--red);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 15px;
+      flex-shrink: 0;
+    }
+    .section-title { font-size: 22px; font-weight: 800; color: var(--dark); }
+    .section-desc { font-size: 14px; color: var(--gray); margin-left: auto; }
+
+    /* ── STORE CARDS ── */
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .store-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .store-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--red);
+    }
+    .store-card.warning::after { background: var(--orange); }
+    .store-card.danger::after { background: #888; }
+    .store-name { font-size: 15px; font-weight: 800; margin-bottom: 8px; color: var(--dark); }
+    .store-meta { font-size: 12px; color: var(--gray); margin-bottom: 10px; }
+    .store-stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .stat-chip {
+      background: var(--gray-light);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+    .stat-chip .k { color: var(--gray); }
+    .stat-chip .v { font-weight: 700; color: var(--dark); margin-left: 3px; }
+    .stat-chip.red { background: var(--red-light); }
+    .stat-chip.red .v { color: var(--red); }
+    .stat-chip.gold { background: var(--gold-light); }
+    .stat-chip.gold .v { color: var(--gold); }
+    .gap-badge {
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .gap-small { background: #E8F5E9; color: var(--green); }
+    .gap-mid { background: #FFF3E0; color: var(--orange); }
+    .gap-big { background: #FFEBEE; color: var(--red); }
+
+    /* ── DIANPING RULES BOX ── */
+    .rules-box {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .rules-box h3 {
+      font-size: 16px; font-weight: 800;
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .rules-box h3 .icon {
+      width: 28px; height: 28px;
+      background: var(--red);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .rule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .rule-item {
+      background: var(--gray-light);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .rule-item .r-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .rule-item .r-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+    .rule-item.highlight { background: var(--red-light); }
+    .rule-item.highlight .r-title { color: var(--red); }
+
+    /* ── SCORE BREAKDOWN ── */
+    .score-bar-wrap { margin-top: 8px; }
+    .score-bar-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .score-bar-label { width: 80px; font-size: 12px; color: var(--gray); flex-shrink: 0; }
+    .score-bar-track {
+      flex: 1;
+      height: 8px;
+      background: #EEE;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: var(--red);
+      transition: width 0.6s;
+    }
+    .score-bar-val { width: 34px; font-size: 12px; font-weight: 700; text-align: right; }
+
+    /* ── STRATEGY CARDS ── */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .strategy-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+    .strategy-card .s-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .strategy-card h4 { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+    .strategy-card p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+    .strategy-card ul { padding-left: 16px; margin-top: 6px; }
+    .strategy-card ul li { font-size: 12px; color: var(--gray); margin-bottom: 4px; }
+    .bg-red { background: var(--red-light); }
+    .bg-gold { background: var(--gold-light); }
+    .bg-green { background: #E8F5E9; }
+    .bg-blue { background: #E3F2FD; }
+    .bg-purple { background: #F3E5F5; }
+    .bg-orange { background: #FFF3E0; }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--red), var(--gold));
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 24px;
+      background: white;
+      border-radius: 12px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -24px; top: 20px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--red);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--red);
+    }
+    .tl-item.q2::before { background: var(--orange); box-shadow: 0 0 0 2px var(--orange); }
+    .tl-item.q3::before { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+    .tl-item.q4::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+    .tl-quarter {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .tl-item.q2 .tl-quarter { color: var(--orange); }
+    .tl-item.q3 .tl-quarter { color: var(--gold); }
+    .tl-item.q4 .tl-quarter { color: var(--green); }
+    .tl-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .tl-tasks {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 10px;
+    }
+    .tl-task {
+      background: var(--gray-light);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+    .tl-task.hot { background: var(--red-light); color: var(--red); font-weight: 600; }
+    .tl-kpi {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--gray);
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+    .tl-kpi strong { color: var(--dark); }
+
+    /* ── REVIEW STRATEGY ── */
+    .review-flow {
+      display: flex;
+      gap: 0;
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .rf-step {
+      flex: 1;
+      padding: 20px 16px;
+      text-align: center;
+      position: relative;
+    }
+    .rf-step::after {
+      content: '▶';
+      position: absolute;
+      right: -10px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--red);
+      font-size: 16px;
+      z-index: 1;
+    }
+    .rf-step:last-child::after { display: none; }
+    .rf-num {
+      width: 32px; height: 32px;
+      background: var(--red);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px;
+      margin: 0 auto 8px;
+    }
+    .rf-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .rf-desc { font-size: 11px; color: var(--gray); line-height: 1.5; }
+    .rf-step:nth-child(even) { background: var(--gray-light); }
+
+    /* ── STORE SPECIFIC ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .diff-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+    .diff-card .dc-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dc-badge {
+      background: var(--red);
+      color: white;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11px; font-weight: 700;
+    }
+    .dc-badge.orange { background: var(--orange); }
+    .dc-badge.gray { background: #888; }
+    .diff-card .dc-name { font-size: 14px; font-weight: 800; }
+    .diff-card .dc-area { font-size: 12px; color: var(--gray); }
+    .diff-point {
+      display: flex; align-items: flex-start; gap: 8px;
+      margin-bottom: 8px;
+    }
+    .diff-point .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .diff-point p { font-size: 13px; color: var(--gray); line-height: 1.5; }
+    .diff-point p strong { color: var(--dark); }
+
+    /* ── KPI TABLE ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    thead { background: var(--red); color: white; }
+    th { padding: 12px 16px; font-size: 13px; text-align: left; }
+    td { padding: 11px 16px; font-size: 13px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--gray-light); }
+    .td-up { color: var(--green); font-weight: 700; }
+    .td-warn { color: var(--orange); font-weight: 700; }
+    .td-danger { color: var(--red); font-weight: 700; }
+    .star-fill { color: #FFB400; }
+
+    /* ── RISK TABLE ── */
+    .risk-list { display: flex; flex-direction: column; gap: 12px; }
+    .risk-item {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .risk-level {
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 11px; font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .risk-high { background: #FFEBEE; color: var(--red); }
+    .risk-mid { background: #FFF3E0; color: var(--orange); }
+    .risk-low { background: #E8F5E9; color: var(--green); }
+    .risk-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .risk-item p { font-size: 13px; color: var(--gray); }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: linear-gradient(135deg, var(--red-light), var(--gold-light));
+      border: 1px solid var(--red-mid);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 16px;
+    }
+    .highlight-box h3 { font-size: 16px; font-weight: 800; color: var(--red); margin-bottom: 12px; }
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .highlight-item { text-align: center; }
+    .highlight-item .h-val { font-size: 28px; font-weight: 900; color: var(--red); }
+    .highlight-item .h-label { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 48px;
+      padding: 24px;
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      border-radius: 14px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    .footer strong { color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .store-grid, .strategy-grid, .rule-grid, .diff-grid { grid-template-columns: 1fr; }
+      .review-flow { flex-direction: column; }
+      .rf-step::after { display: none; }
+      .highlight-grid { grid-template-columns: repeat(2, 1fr); }
+      .cover h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-tag">2026 全年冲榜作战方案</div>
+  <h1>京祥和轩北京涮肉<br><span>大众点评榜单冲击计划</span></h1>
+  <div class="subtitle">4家门店联动 · 老北京火锅热门榜No.1 · 评分冲击5星</div>
+  <div class="cover-goals">
+    <div class="cover-goal">
+      <div class="label">目标榜单</div>
+      <div class="value">热门榜 #1</div>
+    </div>
+    <div class="cover-goal">
+      <div class="label">目标评分</div>
+      <div class="value">⭐ 5星</div>
+    </div>
+    <div class="cover-goal">
+      <div class="label">覆盖门店</div>
+      <div class="value">4家</div>
+    </div>
+    <div class="cover-goal">
+      <div class="label">执行周期</div>
+      <div class="value">12个月</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION 1: 现状诊断 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">现状诊断与目标差距</div>
+    </div>
+
+    <div class="store-grid">
+      <!-- 万科天荟 -->
+      <div class="store-card">
+        <div class="store-name">万科天荟店</div>
+        <div class="store-meta">📍 东郊记忆/音乐公园 · 杉板桥路万科天荟城市广场</div>
+        <div class="store-stats">
+          <div class="stat-chip red"><span class="k">当前评分</span><span class="v">4.6 ★</span></div>
+          <div class="stat-chip gold"><span class="k">人均</span><span class="v">¥122</span></div>
+          <div class="stat-chip"><span class="k">区域</span><span class="v">成都东区</span></div>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-row" style="margin-top:12px">
+            <div class="score-bar-label">当前评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:92%"></div></div>
+            <div class="score-bar-val">4.6</div>
+          </div>
+          <div class="score-bar-row">
+            <div class="score-bar-label">目标评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--gold)"></div></div>
+            <div class="score-bar-val" style="color:var(--gold)">5.0</div>
+          </div>
+        </div>
+        <span class="gap-badge gap-small">差距 +0.4 · 优先级 ★★★</span>
+      </div>
+
+      <!-- 孵化园直营 -->
+      <div class="store-card">
+        <div class="store-name">孵化园直营店</div>
+        <div class="store-meta">📍 环球中心 · 益州大道北段孵化园9区E座</div>
+        <div class="store-stats">
+          <div class="stat-chip red"><span class="k">当前评分</span><span class="v">4.6 ★</span></div>
+          <div class="stat-chip gold"><span class="k">人均</span><span class="v">¥117</span></div>
+          <div class="stat-chip"><span class="k">区域</span><span class="v">高新南区</span></div>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-row" style="margin-top:12px">
+            <div class="score-bar-label">当前评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:92%"></div></div>
+            <div class="score-bar-val">4.6</div>
+          </div>
+          <div class="score-bar-row">
+            <div class="score-bar-label">目标评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--gold)"></div></div>
+            <div class="score-bar-val" style="color:var(--gold)">5.0</div>
+          </div>
+        </div>
+        <span class="gap-badge gap-small">差距 +0.4 · 优先级 ★★★</span>
+      </div>
+
+      <!-- 天府二街 -->
+      <div class="store-card warning">
+        <div class="store-name">天府二街直营店</div>
+        <div class="store-meta">📍 伊藤/世豪广场 · 盛治街与富华北路交叉口保利百合西门</div>
+        <div class="store-stats">
+          <div class="stat-chip red"><span class="k">当前评分</span><span class="v">4.5 ★</span></div>
+          <div class="stat-chip gold"><span class="k">人均</span><span class="v">¥108</span></div>
+          <div class="stat-chip"><span class="k">区域</span><span class="v">天府新区核心</span></div>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-row" style="margin-top:12px">
+            <div class="score-bar-label">当前评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:90%;background:var(--orange)"></div></div>
+            <div class="score-bar-val" style="color:var(--orange)">4.5</div>
+          </div>
+          <div class="score-bar-row">
+            <div class="score-bar-label">目标评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--gold)"></div></div>
+            <div class="score-bar-val" style="color:var(--gold)">5.0</div>
+          </div>
+        </div>
+        <span class="gap-badge gap-mid">差距 +0.5 · 优先级 ★★★★</span>
+      </div>
+
+      <!-- 麓镇 -->
+      <div class="store-card danger">
+        <div class="store-name">麓镇店</div>
+        <div class="store-meta">📍 天府新区 · 麓山大道二段18号16栋104号</div>
+        <div class="store-stats">
+          <div class="stat-chip red"><span class="k">当前评分</span><span class="v">3.9 ★</span></div>
+          <div class="stat-chip gold"><span class="k">人均</span><span class="v">¥136</span></div>
+          <div class="stat-chip"><span class="k">区域</span><span class="v">天府新区南部</span></div>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-row" style="margin-top:12px">
+            <div class="score-bar-label">当前评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:78%;background:#888"></div></div>
+            <div class="score-bar-val" style="color:#888">3.9</div>
+          </div>
+          <div class="score-bar-row">
+            <div class="score-bar-label">目标评分</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--gold)"></div></div>
+            <div class="score-bar-val" style="color:var(--gold)">5.0</div>
+          </div>
+        </div>
+        <span class="gap-badge gap-big">差距 +1.1 · 紧急程度 🔴 重点攻坚</span>
+      </div>
+    </div>
+
+    <!-- 综合诊断 -->
+    <div class="highlight-box" style="margin-top:20px">
+      <h3>⚡ 核心洞察：打铁还需自身硬</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:16px">大众点评评分5星（4.9分以上）对应热门榜靠前位置。当前4店平均4.4分，麓镇店拖累品牌整体声誉，需优先处理。热门榜排名受<strong>评论数量、评分、收藏/人气、营业活跃度</strong>等综合加权影响。</p>
+      <div class="highlight-grid">
+        <div class="highlight-item">
+          <div class="h-val">4.4</div>
+          <div class="h-label">4店当前平均分</div>
+        </div>
+        <div class="highlight-item">
+          <div class="h-val">5.0</div>
+          <div class="h-label">目标评分</div>
+        </div>
+        <div class="highlight-item">
+          <div class="h-val">+0.6</div>
+          <div class="h-label">品牌平均需提升</div>
+        </div>
+        <div class="highlight-item">
+          <div class="h-val">12mo</div>
+          <div class="h-label">冲击周期</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1.5: 4家门店用户画像深度分析 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num" style="background:var(--blue)">1.5</div>
+      <div class="section-title">4家门店用户画像深度分析</div>
+      <div class="section-desc">基于平台大数据的精准客群定位</div>
+    </div>
+
+    <!-- 4家门店画像总览表 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-bottom:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:16px">👥 4家门店核心画像总览</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>门店</th>
+            <th>核心客群定位</th>
+            <th>收入结构</th>
+            <th>年龄/育否</th>
+            <th>流量特点</th>
+            <th>核心优势</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>万科天荟店</strong></td>
+            <td>25-35岁中等收入<br>流动型年轻职场客</td>
+            <td>中等收入绝对主导<br>高收入渗透低</td>
+            <td>25-35岁流量主力<br>35-50岁为中坚<br>未育为主，已育有增量</td>
+            <td>流动客群超70%<br>价格敏感度分化</td>
+            <td>年轻客群基数大<br>商圈流量充足</td>
+          </tr>
+          <tr>
+            <td><strong>孵化园直营店</strong></td>
+            <td>25-50岁职场+家庭客<br>30-50岁为付费主力</td>
+            <td>中等收入绝对支柱<br>高收入几乎无转化</td>
+            <td>25-40岁流量盘<br>30-50岁高转化<br>已育家庭客群转化突出</td>
+            <td>25-30岁年轻客曝光多<br>转化偏弱</td>
+            <td>家庭客群转化高<br>客群结构均衡</td>
+          </tr>
+          <tr>
+            <td><strong>天府二街直营店</strong></td>
+            <td>中高收入、有车、<br>未育职场年轻客</td>
+            <td>高收入占比显著高于同行<br>中等收入为主体</td>
+            <td>25-40岁职场客为主<br>家庭客基数小</td>
+            <td>自然+付费流量精准<br>ROI基础好</td>
+            <td>客群消费力强<br>自驾属性突出</td>
+          </tr>
+          <tr>
+            <td><strong>麓镇店</strong></td>
+            <td>中高收入、有车、<br>未育职场年轻客</td>
+            <td>高收入占比突出<br>中等收入为主体</td>
+            <td>25-40岁职场客为主<br>家庭客基数小</td>
+            <td>自然+付费流量精准<br>投放质量高</td>
+            <td>客群消费力强<br>自驾客群占比高</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 共性特征 -->
+    <div style="background:var(--red-light);border-radius:14px;border:1px solid var(--red);padding:20px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:14px;color:var(--red)">🎯 4家门店共性特征（全品牌统一客群基底）</h4>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+        <div style="background:white;border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px">核心人群</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.7">25-40岁中等收入职场人群是全品牌绝对主力，男女比例均衡，适配朋友聚餐、职场小聚、家庭宴请等多元场景</div>
+        </div>
+        <div style="background:white;border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px">消费结构</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.7">中等收入为全品牌消费支柱，高收入客群仅在天府二街、麓镇两家高端商圈门店有渗透，其余门店高收入转化低</div>
+        </div>
+        <div style="background:white;border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px">流量共性</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.7">25-30岁年轻客群普遍存在「曝光高、转化弱」的特点，是全品牌拉新的核心抓手</div>
+        </div>
+        <div style="background:white;border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px">场景共性</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.7">未育职场客为基础盘，已育家庭客群是全品牌高价值增量，转化意愿普遍高于曝光占比</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1.6: 4家门店经营现状诊断 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num" style="background:var(--gold)">1.6</div>
+      <div class="section-title">4家门店经营现状诊断 · 数据驱动</div>
+      <div class="section-desc">基于2026年1-3月全链路经营数据分析</div>
+    </div>
+
+    <!-- 门店综合评级 -->
+    <div style="background:linear-gradient(135deg,var(--red),var(--orange));border-radius:16px;padding:24px;color:white;margin-bottom:20px">
+      <h3 style="font-size:16px;font-weight:900;margin-bottom:16px">📊 4家门店综合经营评分（2026年Q1）</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:16px;text-align:center;border:2px solid rgba(255,215,0,0.5)">
+          <div style="font-size:20px;font-weight:900;color:#FFD700">麓镇店</div>
+          <div style="font-size:32px;font-weight:900;margin:8px 0">S级</div>
+          <div style="font-size:11px;line-height:1.6">全店标杆<br>3月全链路回暖<br>减补贴仍增长</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:16px;text-align:center;border:2px solid #2196F3">
+          <div style="font-size:20px;font-weight:900;color:#4FC3F7">孵化园店</div>
+          <div style="font-size:32px;font-weight:900;margin:8px 0">B级</div>
+          <div style="font-size:11px;line-height:1.6">核心待修复<br>品牌营收主力<br>打卡回暖</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:16px;text-align:center;border:2px solid #FF9800">
+          <div style="font-size:20px;font-weight:900;color:#FFB74D">天府二街店</div>
+          <div style="font-size:32px;font-weight:900;margin:8px 0">C级</div>
+          <div style="font-size:11px;line-height:1.6">重点激活<br>补贴低效<br>私域下滑</div>
+        </div>
+        <div style="background:rgba(180,0,0,0.55);border-radius:12px;padding:16px;text-align:center;border:2px solid #FF5252">
+          <div style="font-size:20px;font-weight:900;color:#FFCDD2">万科天荟店</div>
+          <div style="font-size:32px;font-weight:900;margin:8px 0;color:#FFFFFF;text-shadow:0 2px 8px rgba(0,0,0,0.6)">D级</div>
+          <div style="font-size:11px;line-height:1.6;color:#FFE0E0">重点帮扶<br>跌幅扩大<br>经营压力最大</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 关键数据概览 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-bottom:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:14px">📈 1-3月核心经营数据总览</h4>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="background:var(--gray-light);border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--red)">↓22%</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:4px">全店曝光环比</div>
+          <div style="font-size:10px;color:var(--gray);margin-top:2px">春节影响2月触底</div>
+        </div>
+        <div style="background:var(--gray-light);border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--red)">↓27%</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:4px">团购收入环比</div>
+          <div style="font-size:10px;color:var(--gray);margin-top:2px">核销人数持续下降</div>
+        </div>
+        <div style="background:var(--gray-light);border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--green)">↑47%</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:4px">孵化园店打卡</div>
+          <div style="font-size:10px;color:var(--gray);margin-top:2px">3月明显回暖</div>
+        </div>
+        <div style="background:var(--gray-light);border-radius:10px;padding:14px;text-align:center">
+          <div style="font-size:22px;font-weight:900;color:var(--green)">↑85%</div>
+          <div style="font-size:11px;color:var(--gray);margin-top:4px">麓镇店打卡</div>
+          <div style="font-size:10px;color:var(--gray);margin-top:2px">复苏势头最强</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心问题分析 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:14px">⚠️ 核心问题诊断</h4>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:10px">流量端问题</div>
+          <ul style="padding-left:16px">
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">曝光回暖未转化为访问、购买，门店承接能力不足</li>
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">天府二街店曝光回正，但用户粘性不足，消费额仍下滑</li>
+            <li style="font-size:13px;color:var(--gray)">万科天荟店流量与交易额持续下滑，降幅进一步扩大</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:10px">交易端问题</div>
+          <ul style="padding-left:16px">
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">团购业务过度依赖补贴，补贴效率低，营收增长乏力</li>
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">整体核销人数持续下降，说明套餐吸引力和到店意愿需加强</li>
+            <li style="font-size:13px;color:var(--gray)">天府二街店补贴继续加码，但团购收入没有同步提升，低效投入</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:10px">私域端问题</div>
+          <ul style="padding-left:16px">
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">多数门店收藏、打卡数据下滑，用户粘性不足</li>
+            <li style="font-size:13px;color:var(--gray)">复购潜力未释放，私域活跃度需提升</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:10px">🌟 核心机会</div>
+          <ul style="padding-left:16px">
+            <li style="font-size:13px;color:var(--gray);margin-bottom:6px">3月打卡数据回暖，是拉动线下到店的黄金窗口</li>
+            <li style="font-size:13px;color:var(--gray)">孵化园、天府二街店基数大，小幅优化即可带来大幅营收提升</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: 大众点评榜单算法解析 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">大众点评榜单算法与规则解析</div>
+    </div>
+
+    <div class="rules-box">
+      <h3><span class="icon">🏆</span> 热门榜上榜核心因子（老北京火锅类目）</h3>
+      <div class="rule-grid">
+        <div class="rule-item highlight">
+          <div class="r-title">📊 综合评分（权重最高）</div>
+          <div class="r-desc">近3个月有效评论的加权平均分，新评论权重 > 老评论。目标4.9分以上，积累30+条近期高分评论是关键门槛。</div>
+        </div>
+        <div class="rule-item highlight">
+          <div class="r-title">💬 评论数量与质量</div>
+          <div class="r-desc">评论数越多，统计越稳定可靠。图文评论 > 纯文字评论 > 简评。近90天新增评论数是重要加权指标。</div>
+        </div>
+        <div class="rule-item highlight">
+          <div class="r-title">❤️ 收藏与人气</div>
+          <div class="r-desc">人均消费适中、收藏数量、到店打卡频次都会影响热度。人均¥108-136处于成都火锅中高端合理区间。</div>
+        </div>
+        <div class="rule-item">
+          <div class="r-title">🏅 口碑奖项</div>
+          <div class="r-desc">参与并获得大众点评「必吃榜」「口碑榜」会显著提升商家权重，可主动申请参评资质。</div>
+        </div>
+        <div class="rule-item">
+          <div class="r-title">📱 商家活跃度</div>
+          <div class="r-desc">商家是否及时回复评论、发布新上菜品/活动，会影响平台推流。建议每周至少更新1次商家动态。</div>
+        </div>
+        <div class="rule-item">
+          <div class="r-title">🔄 复购与回头率</div>
+          <div class="r-desc">同一顾客多次到店消费会提升「忠诚度」指标，建立会员/储值体系可有效提升此项数据。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-box">
+      <h3><span class="icon">⭐</span> 大众点评星级评定标准</h3>
+      <div class="rule-grid">
+        <div class="rule-item">
+          <div class="r-title">5星门槛（目标）</div>
+          <div class="r-desc">综合评分 ≥ 4.9，且评论数达到一定基数（通常50条以上），近3个月无差评集中爆发。是商家口碑最高荣誉。</div>
+        </div>
+        <div class="rule-item">
+          <div class="r-title">4.5星（当前主力）</div>
+          <div class="r-desc">万科天荟店、孵化园店评分4.6，距5星评级仍需持续高分评论积累，重点是减少3分以下差评冲刷。</div>
+        </div>
+        <div class="rule-item">
+          <div class="r-title">评分保护机制</div>
+          <div class="r-desc">大众点评对「刷分」行为有严格识别，集中短期刷量会被降权甚至惩处。必须以真实服务提升为基础。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: 评分提升五大策略 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">评分冲5星 · 五大核心策略</div>
+    </div>
+
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <div class="s-icon bg-red">🍖</div>
+        <h4>策略一：产品力根基打磨</h4>
+        <p>评分本质是体验的量化反馈，产品是一切的基础。</p>
+        <ul>
+          <li>建立标准化涮肉SOP，羊肉切片厚度、鲜度标准化</li>
+          <li>招牌蘸料（麻酱、韭菜花）配方统一，形成品牌记忆点</li>
+          <li>锅底汤料每日熬制标准化，禁用调味包代替</li>
+          <li>差评关键词监控：「肉质」「新鲜」「服务」定期复盘</li>
+          <li>每月「神秘顾客」内部评测，提前发现问题</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-icon bg-gold">⭐</div>
+        <h4>策略二：好评引导运营体系</h4>
+        <p>主动、合规地引导满意顾客留下真实评价。</p>
+        <ul>
+          <li>餐后服务员口头邀评："感谢光临，如果满意请帮我们在大众点评评价一下"</li>
+          <li>桌贴/账单夹：贴上二维码直达评价页，简化路径</li>
+          <li>会员积分奖励：留评后扫码获得积分（不直接给物质奖励）</li>
+          <li>设置「本周之星」内部奖励：当日获得5星评论最多的服务员</li>
+          <li>禁止任何形式刷单行为，100%依赖真实顾客</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-icon bg-green">🛡️</div>
+        <h4>策略三：差评防御与应对</h4>
+        <p>负面评价的及时处理比好评增量更重要。</p>
+        <ul>
+          <li>设置专人每日9:00/21:00巡查大众点评评论</li>
+          <li>2小时内回复所有差评，模板：道歉+具体解决方案+邀请回访</li>
+          <li>3星以下评论，店长/运营主动致电顾客补偿（送券或退款）</li>
+          <li>每月差评根因分析会：服务/菜品/等位哪个问题最多</li>
+          <li>设置「零差评日」目标，全员宣导服务意识</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-icon bg-blue">📸</div>
+        <h4>策略四：内容种草与流量引入</h4>
+        <p>高质量内容带来自然流量，进而提升评论基数。</p>
+        <ul>
+          <li>每月邀请10名美食KOL到店探店，发布小红书/抖音内容</li>
+          <li>制作品牌官方探店视频（宫廷涮肉文化、老北京食材溯源）</li>
+          <li>大众点评商家主页每周发布「本周菜品更新」图文动态</li>
+          <li>成都美食博主合作，重点布局「东郊记忆」「天府新区」等地域话题</li>
+          <li>参与大众点评「发现好店」活动及城市美食节</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-icon bg-purple">🎯</div>
+        <h4>策略五：会员体系与复购</h4>
+        <p>高复购率是热门榜持续稳定在榜的核心保障。</p>
+        <ul>
+          <li>建立会员卡体系：充500赠80，充1000赠200</li>
+          <li>微信群/企业微信沉淀老顾客，定期发送专属福利</li>
+          <li>生日免费锅底、节假日会员专属套餐</li>
+          <li>异业联盟：与周边酒店、写字楼合作企业团餐套餐</li>
+          <li>会员季度专属品鉴会，强化品牌忠诚度</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="s-icon bg-orange">🏅</div>
+        <h4>策略六：榜单资质申请</h4>
+        <p>主动参与平台官方认证，获得更多算法倾斜。</p>
+        <ul>
+          <li>申请大众点评「必吃榜」提名（每年3-4月开放申请）</li>
+          <li>申请「口碑榜·老北京火锅」类目认证</li>
+          <li>开通大众点评商家版「超级会员卡」功能</li>
+          <li>参与「霸王餐」活动：邀请达人免费试吃换评价</li>
+          <li>投放大众点评精准广告：「附近搜火锅」优先展示</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3.5: 免费菜+橙V活动 · 5星评分爆破方案 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num" style="background:var(--orange)">3.5</div>
+      <div class="section-title">免费菜 + 橙V活动 · 5星评分爆破方案</div>
+      <div class="section-desc">4家门店联动 · 快速提升评分获取必吃菜认证</div>
+    </div>
+
+    <!-- 活动价值说明 -->
+    <div style="background:linear-gradient(135deg,#FF6B35,#E8780A);border-radius:16px;padding:24px;color:white;margin-bottom:20px;position:relative;overflow:hidden">
+      <div style="position:absolute;right:-20px;top:-20px;font-size:120px;opacity:0.08;font-weight:900">橙V</div>
+      <h3 style="font-size:17px;font-weight:900;margin-bottom:14px">🍊 为什么要做免费菜 + 橙V活动？</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:14px">
+          <div style="font-size:22px;font-weight:900">80%+</div>
+          <div style="font-size:12px;margin-top:4px;opacity:0.9">参与用户为大众点评橙V用户，高写评意愿</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:14px">
+          <div style="font-size:22px;font-weight:900">30%~40%</div>
+          <div style="font-size:12px;margin-top:4px;opacity:0.9">体验后留评率，远高于普通顾客3%~5%</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:14px">
+          <div style="font-size:22px;font-weight:900">4.9倍</div>
+          <div style="font-size:12px;margin-top:4px;opacity:0.9">橙V用户消费力是普通用户的4.9倍，转化价值高</div>
+        </div>
+      </div>
+      <p style="font-size:13px;opacity:0.9;margin-top:14px;line-height:1.7">免费菜以奖品形式发放给橙V用户，用户15天内核销增加到店客流；核销后流程推动打卡，打卡热度进一步撬动平台线上流量，实现门店线上人气增长。评价可在点评首页信息流分发，形成<strong>免费菜→打卡→5星评价→流量曝光</strong>的完整闭环。</p>
+    </div>
+
+    <!-- 免费菜产品选择 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-bottom:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:16px;color:var(--dark)">🥩 免费菜产品方案（三选一 · 均为¥78/份）</h4>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <div style="border:2px solid var(--orange);border-radius:14px;padding:18px;text-align:center;position:relative;background:#FFFBF7">
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--orange);color:white;border-radius:20px;padding:2px 12px;font-size:11px;font-weight:700;white-space:nowrap">推荐首选</div>
+          <div style="font-size:32px;margin-bottom:8px">🐄</div>
+          <div style="font-weight:900;font-size:15px;margin-bottom:6px">澳洲谷饲安格斯肥牛</div>
+          <div style="color:var(--orange);font-size:18px;font-weight:900;margin-bottom:8px">¥78/份</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.6">高端进口食材，名称具有传播力<br>「澳洲安格斯」关键词自带流量<br>适合社交打卡，引发朋友圈传播</div>
+        </div>
+        <div style="border:2px solid #8BC34A;border-radius:14px;padding:18px;text-align:center;background:#F9FBF5">
+          <div style="font-size:32px;margin-bottom:8px">🐑</div>
+          <div style="font-weight:900;font-size:15px;margin-bottom:6px">草原沙葱羊肉</div>
+          <div style="color:#7CB342;font-size:18px;font-weight:900;margin-bottom:8px">¥78/份</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.6">内蒙/新疆草原食材<br>「沙葱羊肉」口味独特，差异化强<br>与「老北京涮羊肉」品类强关联</div>
+        </div>
+        <div style="border:2px solid #9C27B0;border-radius:14px;padding:18px;text-align:center;background:#FCF5FF">
+          <div style="font-size:32px;margin-bottom:8px">🦴</div>
+          <div style="font-weight:900;font-size:15px;margin-bottom:6px">草原羊蝎子</div>
+          <div style="color:#7B1FA2;font-size:18px;font-weight:900;margin-bottom:8px">¥78/份</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.6">胶原蛋白丰富，受众广<br>适合秋冬季节主推<br>视觉效果好，出镜率高</div>
+        </div>
+      </div>
+      <div style="background:#FFF3E0;border-radius:10px;padding:12px;margin-top:14px;font-size:13px;color:var(--orange)">
+        💡 <strong>建议策略</strong>：4月—6月主推「澳洲谷饲安格斯肥牛」（夏季食客偏好清爽）；秋冬季（9月—12月）切换「草原羊蝎子」，与涮羊肉品类形成季节共鸣。
+      </div>
+    </div>
+
+    <!-- 4家门店免费菜配置 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-bottom:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:16px">📍 4家门店免费菜配置与必吃菜申报</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>门店</th>
+            <th>当前评分</th>
+            <th>目标评分</th>
+            <th>免费菜配置</th>
+            <th>必吃菜申报</th>
+            <th>达标时限</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>万科天荟店</strong>（主力店）</td>
+            <td>4.6 ★</td>
+            <td class="td-up">4.7+ ★</td>
+            <td>澳洲安格斯肥牛 × 10名/日</td>
+            <td>涮羊肉 + 酸菜</td>
+            <td class="td-hot">2个月达标</td>
+          </tr>
+          <tr>
+            <td><strong>孵化园直营店</strong></td>
+            <td>4.6 ★</td>
+            <td class="td-up">4.7+ ★</td>
+            <td>草原沙葱羊肉 × 8名/日</td>
+            <td>涮羊肉 + 羊肉串</td>
+            <td class="td-hot">3个月达标</td>
+          </tr>
+          <tr>
+            <td><strong>天府二街直营店</strong></td>
+            <td>4.5 ★</td>
+            <td class="td-up">4.7+ ★</td>
+            <td>澳洲安格斯肥牛 × 8名/日</td>
+            <td>涮羊肉 + 酸菜</td>
+            <td class="td-hot">3个月达标</td>
+          </tr>
+          <tr>
+            <td><strong>麓镇店</strong>（重点攻坚）</td>
+            <td>3.9 ★</td>
+            <td class="td-up">4.3+ ★</td>
+            <td>草原羊蝎子 × 8名/日</td>
+            <td>涮羊肉 + 羊肉串</td>
+            <td class="td-hot">3个月达标</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="background:#F0F7FF;border-radius:10px;padding:12px;margin-top:12px;font-size:12px;color:var(--blue)">
+        💡 <strong>联动效应</strong>：4家门店同时推进免费菜+橙V活动，可在「成都老北京涮羊肉」搜索词下形成矩阵式覆盖，相互引流；当品牌词「京祥和轩」出现频次显著提升时，平台算法权重同步叠加。
+      </div>
+    </div>
+
+    <!-- 活动执行流程 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-bottom:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:16px">📋 橙V免费菜活动落地执行流程</h4>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0">
+        <div style="text-align:center;padding:12px 8px;position:relative">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin:0 auto 8px">1</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">平台申请</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5">商家后台提报免费菜活动，选定菜品，设置每日名额</div>
+          <div style="position:absolute;right:0;top:22px;font-size:20px;color:#ddd">›</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px;position:relative">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin:0 auto 8px">2</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">橙V分发</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5">平台向3~5km内橙V用户精准推送免费菜券</div>
+          <div style="position:absolute;right:0;top:22px;font-size:20px;color:#ddd">›</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px;position:relative">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin:0 auto 8px">3</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">到店核销</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5">15天内到店出示兑换券，服务员引导体验必吃菜，拍照打卡</div>
+          <div style="position:absolute;right:0;top:22px;font-size:20px;color:#ddd">›</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px;position:relative">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin:0 auto 8px">4</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">引导评价</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5">服务员结账时递上「打卡引导卡」，附必吃菜拍摄指南</div>
+          <div style="position:absolute;right:0;top:22px;font-size:20px;color:#ddd">›</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px">
+          <div style="width:44px;height:44px;border-radius:50%;background:#2E8B57;color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin:0 auto 8px">5</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px">5星沉淀</div>
+          <div style="font-size:11px;color:var(--gray);line-height:1.5">高质量图文评价发布，推动评分提升+流量首页曝光</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 活动预算 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:14px">💰 4家门店免费菜活动预算估算</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>费用项目</th>
+            <th>单店测算</th>
+            <th>4店合计/月</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>免费菜食材成本</strong></td>
+            <td>¥78 × 10名 × 30天 = ¥23,400</td>
+            <td class="td-hot">≈¥93,600/月</td>
+            <td>实际核销率约60%，实际约¥56,000</td>
+          </tr>
+          <tr>
+            <td><strong>平台活动服务费</strong></td>
+            <td>按平台协议（约5%~10%）</td>
+            <td>约¥5,600</td>
+            <td>与大众点评BD对接确认</td>
+          </tr>
+          <tr>
+            <td><strong>桌面打卡物料</strong></td>
+            <td>¥200/月</td>
+            <td>¥800/月</td>
+            <td>A5打卡卡片印刷</td>
+          </tr>
+          <tr>
+            <td><strong>预计评价增量</strong></td>
+            <td>40条图文评价/月</td>
+            <td class="td-up">160条/月</td>
+            <td>橙V高质量评价，权重高</td>
+          </tr>
+          <tr>
+            <td><strong>ROI测算</strong></td>
+            <td colspan="2" class="td-up">每条高质量橙V评价获取成本 ≈¥388，远低于投放成本</td>
+            <td>评分提升→排名提升→自然流量增长</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 4: 全年作战时间轴 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">全年冲榜作战时间轴</div>
+      <div class="section-desc">2026年4月 — 12月</div>
+    </div>
+
+    <div class="timeline">
+
+      <!-- P1 -->
+      <div class="tl-item">
+        <div class="tl-quarter">第一阶段 · 4月 — 5月</div>
+        <div class="tl-title">🔍 诊断分析期 · 全店摸底 + 万科天荟帮扶启动</div>
+        <p style="font-size:13px;color:var(--gray)">从4月起正式启动冲榜方案，先诊断再出手。全面摸底4家门店现状，重点对万科天荟店进行专项帮扶，同步完成基础标准化建设。</p>
+        <div class="tl-tasks">
+          <span class="tl-task hot">4家门店现状诊断会（评分/评论/流量数据）</span>
+          <span class="tl-task hot">万科天荟店差评根因分析 + 专项整改方案</span>
+          <span class="tl-task hot">麓镇店口碑修复专项启动</span>
+          <span class="tl-task">全员服务培训（标准话术 + 产品SOP）</span>
+          <span class="tl-task">商家主页信息完善/主图更新（4店）</span>
+          <span class="tl-task">建立评论监控日报机制</span>
+          <span class="tl-task">五一节「老北京火锅节」主题活动</span>
+          <span class="tl-task">申请大众点评必吃榜资质</span>
+        </div>
+        <div class="tl-kpi">
+          <strong>阶段KPI：</strong>完成4店诊断报告；万科天荟/麓镇店完成整改清单；差评回复率100%；4店新增有效评论各30条+
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="tl-item q2">
+        <div class="tl-quarter">第二阶段 · 6月 — 8月</div>
+        <div class="tl-title">📈 口碑爆破期 · KOL种草 + 免费菜+橙V活动启动</div>
+        <p style="font-size:13px;color:var(--gray)">端午、暑期双档黄金期，配合内容营销集中引流，是评论数量爆发最佳窗口。同步启动免费菜+橙V活动，快速提升综合评分。</p>
+        <div class="tl-tasks">
+          <span class="tl-task hot">4家门店免费菜+橙V活动正式上线（澳洲安格斯肥牛）</span>
+          <span class="tl-task hot">邀请成都美食KOL探店（10人/店）</span>
+          <span class="tl-task">小红书/抖音探店内容矩阵上线</span>
+          <span class="tl-task">会员储值卡正式上线推广</span>
+          <span class="tl-task">参与大众点评「霸王餐」活动</span>
+          <span class="tl-task hot">端午节「老北京手切羊肉」限定产品</span>
+          <span class="tl-task">企业微信私域群建设</span>
+          <span class="tl-task">暑期家庭套餐/亲子套餐上线</span>
+        </div>
+        <div class="tl-kpi">
+          <strong>阶段KPI：</strong>4店综合评分均达4.7+；麓镇店升至4.5+；各店收藏量增长30%；月均新增评论80条+；橙V评价月增160条
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="tl-item q3">
+        <div class="tl-quarter">第三阶段 · 9月 — 10月</div>
+        <div class="tl-title">🔥 榜单冲击期 · 热门榜冲Top3 + 免费菜切换秋冬款</div>
+        <p style="font-size:13px;color:var(--gray)">评分基础已稳固，集中火力冲击热门榜排名。投放精准广告扩大曝光。秋季来临，免费菜切换为草原羊蝎子，与涮羊肉品类形成季节共鸣。</p>
+        <div class="tl-tasks">
+          <span class="tl-task hot">投放大众点评「火锅」类目精准广告</span>
+          <span class="tl-task hot">开通商家「超级会员卡」功能</span>
+          <span class="tl-task hot">免费菜切换为「草原羊蝎子」（秋冬季主推）</span>
+          <span class="tl-task">与周边酒店合作推荐餐厅资源</span>
+          <span class="tl-task hot">冲刺大众点评「口碑榜」上榜</span>
+          <span class="tl-task">中秋节「宫廷涮肉礼盒」产品</span>
+          <span class="tl-task">开展会员品鉴会（4店联动）</span>
+          <span class="tl-task">实时监控热门榜排名变化</span>
+          <span class="tl-task hot">国庆「宫廷御膳涮肉宴」主题活动</span>
+        </div>
+        <div class="tl-kpi">
+          <strong>阶段KPI：</strong>热门榜进入前3名；4店平均评分4.8+；麓镇店评分4.6+；月均新增评论100条+；橙V评价持续增长
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="tl-item q4">
+        <div class="tl-quarter">第四阶段 · 11月 — 12月</div>
+        <div class="tl-title">🏆 守擂巩固期 · 热门榜第一 + 5星评定冲刺</div>
+        <p style="font-size:13px;color:var(--gray)">年底是火锅旺季，借势完成最后冲刺，并建立长效护城河机制，为2027年持续领跑奠定基础。</p>
+        <div class="tl-tasks">
+          <span class="tl-task hot">全年好评总结传播（品牌故事）</span>
+          <span class="tl-task">圣诞/元旦主题套餐预售</span>
+          <span class="tl-task">年度VIP答谢宴（私域顾客）</span>
+          <span class="tl-task hot">冲击大众点评5星评定</span>
+          <span class="tl-task">年度品牌公关稿：「成都最正宗老北京涮肉」</span>
+          <span class="tl-task">2027冲榜方案复盘与规划</span>
+          <span class="tl-task">年底企业团餐大单签约</span>
+        </div>
+        <div class="tl-kpi">
+          <strong>年终KPI：</strong>热门榜第一；4店平均评分4.9+（5星）；麓镇店评分4.8+；品牌总评论量翻倍；万科天荟店评分4.7+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 5: 评论引导SOP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">评论引导标准流程（SOP）</div>
+    </div>
+
+    <div class="review-flow">
+      <div class="rf-step">
+        <div class="rf-num">1</div>
+        <div class="rf-title">餐中关怀</div>
+        <div class="rf-desc">上菜后5分钟询问口味是否满意，主动解决问题，不给差评机会</div>
+      </div>
+      <div class="rf-step">
+        <div class="rf-num">2</div>
+        <div class="rf-title">餐后邀评</div>
+        <div class="rf-desc">买单时口头邀请："如满意，麻烦帮我们点评一下，支持我们继续做好"</div>
+      </div>
+      <div class="rf-step">
+        <div class="rf-num">3</div>
+        <div class="rf-title">扫码引导</div>
+        <div class="rf-desc">账单夹内附二维码，直达大众点评评价页，减少操作步骤</div>
+      </div>
+      <div class="rf-step">
+        <div class="rf-num">4</div>
+        <div class="rf-title">积分奖励</div>
+        <div class="rf-desc">评价后出示截图，扫码领取20积分，积分可兑换小料/餐后甜品</div>
+      </div>
+      <div class="rf-step">
+        <div class="rf-num">5</div>
+        <div class="rf-title">评论监控</div>
+        <div class="rf-desc">每日9点/21点专人巡查，2小时内回复所有评论（好评感谢+差评处理）</div>
+      </div>
+    </div>
+
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-top:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:12px">📝 差评回复话术模板</h4>
+      <div style="background:var(--gray-light);border-radius:8px;padding:16px;font-size:13px;line-height:1.8;color:var(--gray);border-left:3px solid var(--red)">
+        亲爱的顾客您好，非常感谢您的反馈！我们看到您提到<strong style="color:var(--dark)">[具体问题]</strong>，对此我们深感抱歉。这让我们深刻认识到在<strong style="color:var(--dark)">[改进项目]</strong>方面还有不足。我们已第一时间通知相关部门进行整改，并承诺下次到访必给您一个满意的体验。如您方便，欢迎您再次光临，届时凭此评论可享受<strong style="color:var(--red)">[补偿权益]</strong>。我们珍视您的每一次到来，期待为您带来更好的北京涮肉体验！
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: 各门店差异化策略 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">各门店差异化运营策略</div>
+    </div>
+
+    <div class="diff-grid">
+      <!-- 万科天荟 -->
+      <div class="diff-card">
+        <div class="dc-header">
+          <div class="dc-badge">东郊记忆商圈</div>
+          <div>
+            <div class="dc-name">万科天荟店</div>
+            <div class="dc-area">¥122/人 · 评分4.6</div>
+          </div>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>客群定位：</strong>东郊文艺创意人群、音乐公园周边消费者、万科社区居民。消费力中高，注重品质与体验感。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>差异化亮点：</strong>主打「北京文化+东郊文艺」融合概念，打造复古京派涮肉美学空间，与东郊记忆文化场景联动营销。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>重点动作：</strong>与东郊记忆音乐演出合作（演出前后套餐），邀请文艺类KOL探店，打造「涮肉+音乐」联名活动。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>冲榜突破口：</strong>人均¥122在该商圈属合理区间，重点提升环境/服务评分，冲刺周边「北京菜/火锅」类目第一。</p>
+        </div>
+      </div>
+
+      <!-- 孵化园 -->
+      <div class="diff-card">
+        <div class="dc-header">
+          <div class="dc-badge">环球中心商圈</div>
+          <div>
+            <div class="dc-name">孵化园直营店</div>
+            <div class="dc-area">¥117/人 · 评分4.6</div>
+          </div>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>客群定位：</strong>高新区科技公司员工、写字楼白领群体。工作日午/晚餐需求旺盛，偏好高效、稳定的品质体验。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>差异化亮点：</strong>主推「企业团餐套餐」和「快速午市火锅」，打造成都高新区首选商务火锅目的地。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>重点动作：</strong>联系孵化园各公司HR签订团餐协议，推出商务用餐月卡，开通企业储值账户，打通公司报销场景。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>冲榜突破口：</strong>评论量可能是短板，重点激励商务顾客留评，通过企业合作带来稳定的高频复购数据。</p>
+        </div>
+      </div>
+
+      <!-- 天府二街 -->
+      <div class="diff-card">
+        <div class="dc-header">
+          <div class="dc-badge orange">伊藤商圈</div>
+          <div>
+            <div class="dc-name">天府二街直营店</div>
+            <div class="dc-area">¥108/人 · 评分4.5（需重点提升）</div>
+          </div>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>客群定位：</strong>天府新区核心居住区家庭客群、伊藤/世豪广场购物客流。家庭聚餐、朋友聚会场景为主。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>差异化亮点：</strong>¥108人均是4店中最亲民的价格，主打「家庭正宗老北京涮肉」，突出性价比和正宗度。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>重点动作：</strong>开发儿童友好菜单，打造家庭聚餐套餐，联合伊藤超市采购合作，借助购物中心引流。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>冲榜突破口：</strong>评分4.5需找准差评根因（推测为等位时间或服务效率），Q1专项优化后可快速提升至4.7+。</p>
+        </div>
+      </div>
+
+      <!-- 麓镇 -->
+      <div class="diff-card">
+        <div class="dc-header">
+          <div class="dc-badge gray">天府新区南部</div>
+          <div>
+            <div class="dc-name">麓镇店 🔴 重点攻坚</div>
+            <div class="dc-area">¥136/人 · 评分3.9（最高优先级）</div>
+          </div>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>核心问题：</strong>人均¥136是4店最高，但评分3.9最低，存在明显的<strong>价值感落差</strong>——顾客觉得性价比不高。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>紧急行动：</strong>立即对麓镇店近3个月差评进行全量分析，找到重复出现的关键词（服务慢/肉质/分量等）优先解决。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>提升策略：</strong>考虑适当下调人均（推出更多¥100-120区间套餐），或大幅提升菜品分量/服务品质以支撑¥136价位。</p>
+        </div>
+        <div class="diff-point">
+          <div class="dot"></div>
+          <p><strong>冲榜突破口：</strong>麓镇客群以高端居住区家庭/改善型消费为主，打造「精品宫廷涮肉」概念，用品质感支撑高价格。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: KPI看板 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">全年KPI追踪看板</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>门店</th>
+          <th>当前评分</th>
+          <th>4—5月目标</th>
+          <th>6—8月目标</th>
+          <th>9—10月目标</th>
+          <th>11—12月（年终）</th>
+          <th>榜单目标</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>万科天荟店</strong><br><small style="color:var(--gray)">东郊记忆商圈</small></td>
+          <td><span class="star-fill">★★★★</span> 4.6</td>
+          <td class="td-up">4.7</td>
+          <td class="td-up">4.8</td>
+          <td class="td-up">4.9</td>
+          <td class="td-up"><strong>5.0 ⭐</strong></td>
+          <td>热门榜 Top3 → <strong>No.1</strong></td>
+        </tr>
+        <tr>
+          <td><strong>孵化园直营店</strong><br><small style="color:var(--gray)">环球中心商圈</small></td>
+          <td><span class="star-fill">★★★★</span> 4.6</td>
+          <td class="td-up">4.7</td>
+          <td class="td-up">4.8</td>
+          <td class="td-up">4.9</td>
+          <td class="td-up"><strong>5.0 ⭐</strong></td>
+          <td>热门榜 Top3 → <strong>No.1</strong></td>
+        </tr>
+        <tr>
+          <td><strong>天府二街直营店</strong><br><small style="color:var(--gray)">伊藤/世豪广场</small></td>
+          <td><span class="star-fill">★★★★</span> 4.5</td>
+          <td class="td-warn">4.6</td>
+          <td class="td-up">4.7</td>
+          <td class="td-up">4.85</td>
+          <td class="td-up"><strong>5.0 ⭐</strong></td>
+          <td>热门榜 Top5 → <strong>No.1</strong></td>
+        </tr>
+        <tr>
+          <td><strong>麓镇店</strong><br><small style="color:var(--gray)">天府新区南部</small></td>
+          <td><span style="color:#888">★★★</span><span style="color:#DDD">★★</span> 3.9</td>
+          <td class="td-danger">4.3 🔴</td>
+          <td class="td-warn">4.5</td>
+          <td class="td-warn">4.7</td>
+          <td class="td-up"><strong>4.8+ ⭐</strong></td>
+          <td>上榜热门榜 → <strong>前5</strong></td>
+        </tr>
+        <tr style="background:var(--gold-light)">
+          <td><strong>品牌综合</strong></td>
+          <td><strong>4.4均分</strong></td>
+          <td class="td-up"><strong>4.6</strong></td>
+          <td class="td-up"><strong>4.7</strong></td>
+          <td class="td-up"><strong>4.85</strong></td>
+          <td class="td-up"><strong>4.95 🏆</strong></td>
+          <td><strong>老北京火锅热门榜 No.1</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 辅助指标 -->
+    <div style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px;margin-top:16px">
+      <h4 style="font-size:15px;font-weight:800;margin-bottom:14px">📊 过程性辅助KPI（月度监控）</h4>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="text-align:center;padding:12px;background:var(--gray-light);border-radius:10px">
+          <div style="font-size:22px;font-weight:900;color:var(--red)">100条+</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">月均新增评论目标<br>（旺季）</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--gray-light);border-radius:10px">
+          <div style="font-size:22px;font-weight:900;color:var(--red)">2小时</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">差评最大响应时间<br>（硬性要求）</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--gray-light);border-radius:10px">
+          <div style="font-size:22px;font-weight:900;color:var(--red)">0条</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">未回复差评数<br>（月末清零）</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--gray-light);border-radius:10px">
+          <div style="font-size:22px;font-weight:900;color:var(--red)">10人</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">季度KOL探店<br>（每店）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: 风险管控 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div class="section-title">风险管控与应急预案</div>
+    </div>
+
+    <div class="risk-list">
+      <div class="risk-item">
+        <div class="risk-level risk-high">高风险</div>
+        <div>
+          <h4>麓镇店评分持续低迷</h4>
+          <p>应急方案：若Q1结束仍未突破4.0，启动「麓镇店服务升级专项」，考虑引入第三方神秘顾客评测公司，对比竞品全面诊断，或讨论是否调整店面定位与价格策略。</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-level risk-high">高风险</div>
+        <div>
+          <h4>食品安全事故/负面舆情爆发</h4>
+          <p>应急方案：建立食品安全危机处理SOP，事故发生后1小时内官方回应，72小时内发布整改报告。提前准备公关话术模板，指定品牌负责人为唯一发言人。任何情况下不删差评、不进行无效公关。</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-level risk-mid">中风险</div>
+        <div>
+          <h4>竞品恶意差评/同行打压</h4>
+          <p>应急方案：保留异常差评证据，通过大众点评商家后台申诉虚假评价；同时以更多真实好评稀释差评影响，不主动应战以免扩大负面传播。</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-level risk-mid">中风险</div>
+        <div>
+          <h4>热门榜算法调整导致排名下滑</h4>
+          <p>应急方案：不过度依赖单一榜单，同步建立小红书/抖音流量矩阵分散风险。榜单排名下滑时立即分析评论质量和数量变化，调整运营策略。</p>
+        </div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-level risk-low">低风险</div>
+        <div>
+          <h4>执行团队人员流失</h4>
+          <p>应急方案：评论管理、KOL联络等关键工作建立双人负责制，形成可交接的操作手册。考虑采购第三方口碑管理工具降低人力依赖。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <strong>京祥和轩北京涮肉 · 2026全年大众点评冲榜作战方案</strong><br>
+    制定日期：2026年4月 · 执行周期：2026年4月—12月<br>
+    核心目标：老北京火锅类目热门榜第一 · 4店综合评分冲击5星<br>
+    <br>
+    <em>⚠️ 重要提示：本方案所有评分提升策略均基于真实服务提升为前提，严禁任何形式的虚假评论、刷单行为，避免触发大众点评惩处机制，保障品牌长期口碑健康发展。</em>
+  </div>
+
+</div>
+</body>
+</html>
