@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>京祥和轩 · 2026年运营日报 / 周报</title>
+  <style>
+    :root {
+      --red: #C8282D;
+      --red-light: #FFF0F0;
+      --gold: #D4A017;
+      --gold-light: #FDF6E3;
+      --dark: #1A1A1A;
+      --gray: #5A5A5A;
+      --gray-light: #F4F4F4;
+      --border: #E0E0E0;
+      --green: #2E8B57;
+      --green-light: #F0FFF4;
+      --blue: #1565C0;
+      --blue-light: #E3F2FD;
+      --orange: #E8780A;
+      --orange-light: #FFF3E0;
+      --purple: #6A1B9A;
+      --purple-light: #F3E5F5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+      background: #F8F5F0;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      background: linear-gradient(135deg, #8B0000 0%, #C8282D 50%, #D4A017 100%);
+      color: white;
+      padding: 48px 40px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '报';
+      position: absolute;
+      right: -10px; top: -20px;
+      font-size: 240px;
+      font-weight: 900;
+      opacity: 0.07;
+    }
+    .cover-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .cover h1 { font-size: 30px; font-weight: 900; line-height: 1.25; margin-bottom: 10px; }
+    .cover h1 span { color: #FFD700; }
+    .cover .subtitle { font-size: 14px; opacity: 0.85; margin-bottom: 28px; }
+    .cover-tabs {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .cover-tab {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .cover-tab.active, .cover-tab:hover {
+      background: rgba(255,255,255,0.35);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 980px; margin: 0 auto; padding: 0 20px 60px; }
+
+    /* ── TABS ── */
+    .tab-bar {
+      display: flex; gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin: 32px 0 28px;
+      position: sticky; top: 0; background: #F8F5F0; z-index: 10;
+      padding: 0 4px;
+    }
+    .tab-btn {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── SECTION ── */
+    .section { margin-top: 40px; }
+    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .section-num {
+      width: 34px; height: 34px;
+      background: var(--red);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 900; flex-shrink: 0;
+    }
+    .section-title { font-size: 20px; font-weight: 900; }
+    .section-sub { font-size: 13px; color: var(--gray); margin-left: auto; }
+
+    /* ── GOAL CARDS ── */
+    .goal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .goal-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--red);
+    }
+    .goal-card.green { border-left-color: var(--green); }
+    .goal-card.blue { border-left-color: var(--blue); }
+    .goal-card.orange { border-left-color: var(--orange); }
+    .goal-card.purple { border-left-color: var(--purple); }
+    .goal-label { font-size: 11px; color: var(--gray); margin-bottom: 4px; }
+    .goal-now { font-size: 13px; color: var(--gray); }
+    .goal-target { font-size: 22px; font-weight: 900; color: var(--dark); margin: 2px 0; }
+    .goal-deadline { font-size: 11px; color: var(--gray); }
+
+    /* ── PHASE TIMELINE ── */
+    .phase-list { display: flex; flex-direction: column; gap: 10px; }
+    .phase-item {
+      background: white;
+      border-radius: 12px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      align-items: center;
+      gap: 16px;
+    }
+    .phase-period { font-size: 13px; font-weight: 800; color: var(--red); }
+    .phase-name { font-size: 14px; font-weight: 700; }
+    .phase-kpi { font-size: 12px; color: var(--gray); margin-top: 3px; }
+    .phase-badge {
+      font-size: 11px; font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .badge-now { background: var(--red-light); color: var(--red); }
+    .badge-next { background: var(--orange-light); color: var(--orange); }
+    .badge-future { background: var(--gray-light); color: var(--gray); }
+    .badge-done { background: var(--green-light); color: var(--green); }
+
+    /* ── DAILY FORM ── */
+    .daily-header {
+      background: white;
+      border-radius: 14px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .daily-date { font-size: 22px; font-weight: 900; }
+    .daily-date span { color: var(--red); }
+    .daily-meta { font-size: 13px; color: var(--gray); }
+    .daily-phase-tag {
+      background: var(--red-light);
+      color: var(--red);
+      border: 1px solid var(--red);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .store-block {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .store-block-header {
+      padding: 12px 20px;
+      background: var(--gray-light);
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .store-block-name { font-size: 15px; font-weight: 900; }
+    .store-block-meta { font-size: 12px; color: var(--gray); }
+    .store-block-score {
+      margin-left: auto;
+      font-size: 13px; font-weight: 700;
+      display: flex; gap: 10px;
+    }
+    .score-chip {
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .score-chip.red { background: var(--red-light); color: var(--red); }
+    .score-chip.green { background: var(--green-light); color: var(--green); }
+    .score-chip.gray { background: var(--gray-light); color: var(--gray); }
+
+    .daily-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .daily-table th, .daily-table td {
+      padding: 10px 16px;
+      font-size: 13px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .daily-table th { font-weight: 700; color: var(--gray); background: #FAFAFA; }
+    .daily-table tr:last-child td { border-bottom: none; }
+    .fill-cell {
+      background: #FFFDE7;
+      border: 1px dashed #F9A825;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: #B8860B;
+      min-width: 120px;
+      display: inline-block;
+    }
+    .fill-placeholder { color: #ccc; font-style: italic; }
+
+    .summary-row {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      margin-top: 14px;
+    }
+    .summary-row h4 { font-size: 14px; font-weight: 800; margin-bottom: 10px; color: var(--dark); }
+    .summary-row textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 10px 14px;
+      border: 1px dashed #F9A825;
+      border-radius: 8px;
+      font-size: 13px;
+      background: #FFFDE7;
+      color: var(--dark);
+      font-family: 'PingFang SC', sans-serif;
+      resize: vertical;
+    }
+    .summary-row textarea::placeholder { color: #ccc; }
+
+    /* ── WEEK FORM ── */
+    .week-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .wkpi-card {
+      background: white;
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+    }
+    .wkpi-label { font-size: 11px; color: var(--gray); margin-bottom: 5px; }
+    .wkpi-target { font-size: 12px; color: var(--red); font-weight: 700; margin-bottom: 5px; }
+    .wkpi-input {
+      border: 1px dashed #F9A825;
+      border-radius: 6px;
+      background: #FFFDE7;
+      padding: 5px 8px;
+      font-size: 14px;
+      font-weight: 900;
+      width: 100%;
+      font-family: 'PingFang SC', sans-serif;
+      color: var(--dark);
+    }
+    .wkpi-input::placeholder { color: #ccc; font-size: 12px; }
+
+    .action-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .action-table th, .action-table td {
+      padding: 11px 16px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .action-table th { background: var(--gray-light); font-weight: 700; color: var(--gray); }
+    .action-table tr:last-child td { border-bottom: none; }
+    .tag-done { background: var(--green-light); color: var(--green); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .tag-ing  { background: var(--orange-light); color: var(--orange); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .tag-pending { background: var(--gray-light); color: var(--gray); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap { margin: 6px 0 0; }
+    .progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--red), var(--gold)); }
+    .progress-label { font-size: 11px; color: var(--gray); margin-top: 3px; display: flex; justify-content: space-between; }
+
+    /* ── ANNUAL BREAKDOWN ── */
+    .month-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .month-table th, .month-table td {
+      padding: 10px 14px;
+      font-size: 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .month-table th { background: var(--dark); color: white; font-weight: 700; }
+    .month-table td:first-child { text-align: left; font-weight: 700; }
+    .month-table tr:last-child td { border-bottom: none; }
+    .month-table .now-month { background: #FFF8E1; font-weight: 700; }
+    td.up { color: var(--green); font-weight: 700; }
+    td.warn { color: var(--orange); font-weight: 700; }
+    td.crit { color: var(--red); font-weight: 700; }
+
+    /* ── PRINT BTN ── */
+    .print-bar {
+      display: flex; justify-content: flex-end; gap: 10px;
+      margin-bottom: 12px; margin-top: -8px;
+    }
+    .btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-red { background: var(--red); color: white; }
+    .btn-outline { background: white; color: var(--red); border: 1px solid var(--red); }
+
+    @media print {
+      .tab-bar, .print-bar, .cover-tabs { display: none; }
+      .tab-content { display: block !important; }
+      .section { page-break-inside: avoid; }
+    }
+    @media (max-width: 640px) {
+      .phase-item { grid-template-columns: 1fr; }
+      .daily-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-tag">京祥和轩老北京涮肉 · 2026运营追踪体系</div>
+  <h1>全年目标拆解<br><span>日报 · 周报</span> 追踪看板</h1>
+  <div class="subtitle">执行周期：2026年4月—12月 · 覆盖冲榜 + 回头客双线目标</div>
+  <div class="cover-tabs">
+    <div class="cover-tab active" onclick="switchTab('annual')">📋 全年目标拆解</div>
+    <div class="cover-tab" onclick="switchTab('daily')">📅 日报模板</div>
+    <div class="cover-tab" onclick="switchTab('weekly')">📊 周报模板</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <div class="tab-btn active" onclick="switchTab('annual')" id="tab-annual">📋 全年目标拆解</div>
+    <div class="tab-btn" onclick="switchTab('daily')" id="tab-daily">📅 日报模板</div>
+    <div class="tab-btn" onclick="switchTab('weekly')" id="tab-weekly">📊 周报模板</div>
+  </div>
+
+  <!-- ═══════════════════════════ TAB 1：全年目标拆解 ═══════════════════════════ -->
+  <div class="tab-content active" id="content-annual">
+
+    <!-- 核心年终目标 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">2026年年终核心目标</div>
+        <div class="section-sub">4月—12月 共9个月</div>
+      </div>
+      <div class="goal-grid">
+        <div class="goal-card">
+          <div class="goal-label">🏆 冲榜目标</div>
+          <div class="goal-target">热门榜 #1</div>
+          <div class="goal-now">当前：暂未上榜</div>
+          <div class="goal-deadline">达成节点：11—12月</div>
+        </div>
+        <div class="goal-card green">
+          <div class="goal-label">⭐ 4店均分</div>
+          <div class="goal-target">4.95 分</div>
+          <div class="goal-now">当前均分：4.4</div>
+          <div class="goal-deadline">达成节点：11—12月</div>
+        </div>
+        <div class="goal-card blue">
+          <div class="goal-label">💙 回头客指数</div>
+          <div class="goal-target">90%+</div>
+          <div class="goal-now">当前：80.88%</div>
+          <div class="goal-deadline">达成节点：9—11月</div>
+        </div>
+        <div class="goal-card orange">
+          <div class="goal-label">🎫 代金券（次卡）销量</div>
+          <div class="goal-target">20万+ 张</div>
+          <div class="goal-now">当前：1.4万+</div>
+          <div class="goal-deadline">达成节点：12月累计</div>
+        </div>
+        <div class="goal-card purple">
+          <div class="goal-label">👥 私域群人数</div>
+          <div class="goal-target">8000 人</div>
+          <div class="goal-now">当前：约500人</div>
+          <div class="goal-deadline">达成节点：12月</div>
+        </div>
+        <div class="goal-card green">
+          <div class="goal-label">🔄 30天复购率</div>
+          <div class="goal-target">70%+</div>
+          <div class="goal-now">当前：约25%</div>
+          <div class="goal-deadline">达成节点：11—12月</div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-label">💬 月均新增评论</div>
+          <div class="goal-target">100 条/店</div>
+          <div class="goal-now">当前：约20条/店</div>
+          <div class="goal-deadline">达成节点：9—10月起维持</div>
+        </div>
+        <div class="goal-card orange">
+          <div class="goal-label">🥩 橙V评价</div>
+          <div class="goal-target">160条/月</div>
+          <div class="goal-now">当前：极少</div>
+          <div class="goal-deadline">启动节点：6—8月</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4门店评分拆解 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">4门店评分阶段目标拆解</div>
+      </div>
+      <table class="month-table">
+        <thead>
+          <tr>
+            <th>门店</th>
+            <th>当前</th>
+            <th>4—5月</th>
+            <th>6—8月</th>
+            <th>9—10月</th>
+            <th>11—12月</th>
+            <th>年终目标</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>麓镇店 🔴</td>
+            <td class="crit">3.9</td>
+            <td class="warn">4.3+</td>
+            <td class="warn">4.5</td>
+            <td class="up">4.7</td>
+            <td class="up">4.8+</td>
+            <td class="up">热门榜前5</td>
+          </tr>
+          <tr>
+            <td>天府二街店</td>
+            <td class="warn">4.5</td>
+            <td class="warn">4.6</td>
+            <td class="up">4.7</td>
+            <td class="up">4.85</td>
+            <td class="up">5.0 ⭐</td>
+            <td class="up">热门榜 No.1</td>
+          </tr>
+          <tr>
+            <td>孵化园直营店</td>
+            <td class="warn">4.6</td>
+            <td class="up">4.7</td>
+            <td class="up">4.8</td>
+            <td class="up">4.9</td>
+            <td class="up">5.0 ⭐</td>
+            <td class="up">热门榜 No.1</td>
+          </tr>
+          <tr>
+            <td>万科天荟店 🔴</td>
+            <td class="warn">4.6</td>
+            <td class="up">4.7+</td>
+            <td class="up">4.8</td>
+            <td class="up">4.9</td>
+            <td class="up">5.0 ⭐</td>
+            <td class="up">热门榜 Top3</td>
+          </tr>
+          <tr style="background:#FFF8E1">
+            <td><strong>品牌均分</strong></td>
+            <td><strong class="crit">4.4</strong></td>
+            <td><strong class="warn">4.6</strong></td>
+            <td><strong class="up">4.7</strong></td>
+            <td><strong class="up">4.85</strong></td>
+            <td><strong class="up">4.95 🏆</strong></td>
+            <td><strong class="up">老北京火锅热门榜 No.1</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 全年月度目标拆解 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">月度关键指标目标拆解</div>
+      </div>
+      <table class="month-table">
+        <thead>
+          <tr>
+            <th>月份</th>
+            <th>阶段</th>
+            <th>次卡累计销量</th>
+            <th>回头客指数</th>
+            <th>私域群人数</th>
+            <th>月新增评论/店</th>
+            <th>核心任务</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="now-month">
+            <td>4月 🔴今</td>
+            <td>诊断分析期</td>
+            <td>500+</td>
+            <td>81%</td>
+            <td>500→800</td>
+            <td>30条+</td>
+            <td>全店诊断 / 万科天荟帮扶启动</td>
+          </tr>
+          <tr class="now-month">
+            <td>5月</td>
+            <td>诊断分析期</td>
+            <td>3000+</td>
+            <td>82%</td>
+            <td>1000</td>
+            <td>50条+</td>
+            <td>次卡/黑钻卡上线 / 五一节点</td>
+          </tr>
+          <tr>
+            <td>6月</td>
+            <td>口碑爆破期</td>
+            <td>8000+</td>
+            <td>83%</td>
+            <td>1500</td>
+            <td>60条+</td>
+            <td>免费菜+橙V上线（肥牛）/ 端午活动</td>
+          </tr>
+          <tr>
+            <td>7月</td>
+            <td>口碑爆破期</td>
+            <td>20000+</td>
+            <td>84%</td>
+            <td>2000</td>
+            <td>80条+</td>
+            <td>KOL探店 / 暑期家庭套餐</td>
+          </tr>
+          <tr>
+            <td>8月</td>
+            <td>口碑爆破期</td>
+            <td>50000+</td>
+            <td>85%</td>
+            <td>2500</td>
+            <td>80条+</td>
+            <td>必吃菜认证推进 / 全店评分4.7+</td>
+          </tr>
+          <tr>
+            <td>9月</td>
+            <td>榜单冲击期</td>
+            <td>80000+</td>
+            <td>87%</td>
+            <td>3500</td>
+            <td>100条+</td>
+            <td>免费菜切换羊蝎子 / 精准广告上线</td>
+          </tr>
+          <tr>
+            <td>10月</td>
+            <td>榜单冲击期</td>
+            <td>120000+</td>
+            <td>89%</td>
+            <td>5000</td>
+            <td>100条+</td>
+            <td>国庆主题活动 / 热门榜Top3冲刺</td>
+          </tr>
+          <tr>
+            <td>11月</td>
+            <td>守擂巩固期</td>
+            <td>160000+</td>
+            <td>91%</td>
+            <td>6500</td>
+            <td>100条+</td>
+            <td>5星评定冲刺 / 热门榜No.1</td>
+          </tr>
+          <tr>
+            <td>12月</td>
+            <td>守擂巩固期</td>
+            <td>200000+</td>
+            <td>95%+</td>
+            <td>8000+</td>
+            <td>100条+</td>
+            <td>年底旺季 / 品牌故事传播 / 守擂</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 阶段进度 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">执行阶段进度一览</div>
+      </div>
+      <div class="phase-list">
+        <div class="phase-item">
+          <div>
+            <div class="phase-period">第一阶段 · 4—5月</div>
+          </div>
+          <div>
+            <div class="phase-name">🔍 诊断分析期 · 全店摸底 + 万科天荟帮扶</div>
+            <div class="phase-kpi">次卡销量≥3000张 · 黑钻卡≥200张 · 差评回复率100% · 4店诊断报告完成</div>
+            <div class="progress-wrap">
+              <div class="progress-bar"><div class="progress-fill" style="width:12%"></div></div>
+              <div class="progress-label"><span>进行中</span><span>12%</span></div>
+            </div>
+          </div>
+          <div class="phase-badge badge-now">🔴 进行中</div>
+        </div>
+        <div class="phase-item">
+          <div>
+            <div class="phase-period">第二阶段 · 6—8月</div>
+          </div>
+          <div>
+            <div class="phase-name">📈 口碑爆破期 · KOL种草 + 免费菜+橙V启动</div>
+            <div class="phase-kpi">4店均分4.7+ · 月均评论80条+ · 橙V评价160条/月 · 收藏+30%</div>
+          </div>
+          <div class="phase-badge badge-next">🟡 即将开始</div>
+        </div>
+        <div class="phase-item">
+          <div>
+            <div class="phase-period">第三阶段 · 9—10月</div>
+          </div>
+          <div>
+            <div class="phase-name">🔥 榜单冲击期 · 热门榜Top3 + 免费菜切换秋冬款</div>
+            <div class="phase-kpi">热门榜前3 · 4店均分4.8+ · 月均评论100条+ · 回头客指数87%+</div>
+          </div>
+          <div class="phase-badge badge-future">⚪ 待启动</div>
+        </div>
+        <div class="phase-item">
+          <div>
+            <div class="phase-period">第四阶段 · 11—12月</div>
+          </div>
+          <div>
+            <div class="phase-name">🏆 守擂巩固期 · 热门榜No.1 + 5星评定</div>
+            <div class="phase-kpi">热门榜第一 · 4店均分4.95+ · 30天复购率70%+ · 回头客指数90%+</div>
+          </div>
+          <div class="phase-badge badge-future">⚪ 待启动</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- END TAB 1 -->
+
+
+  <!-- ═══════════════════════════ TAB 2：日报 ═══════════════════════════ -->
+  <div class="tab-content" id="content-daily">
+
+    <div class="print-bar">
+      <button class="btn btn-outline" onclick="window.print()">🖨️ 打印/导出PDF</button>
+      <button class="btn btn-red" onclick="clearForm()">🔄 清空填写</button>
+    </div>
+
+    <!-- 日报头部 -->
+    <div class="daily-header">
+      <div>
+        <div class="daily-date">日报 · <span id="today-date">2026年4月10日</span></div>
+        <div class="daily-meta">星期五 · 执行阶段：第一阶段（诊断分析期）</div>
+      </div>
+      <div class="daily-phase-tag">🔴 第一阶段 · 4—5月 · 诊断分析期</div>
+    </div>
+
+    <!-- 4店数据 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--green)">①</div>
+        <div class="section-title">4门店今日数据</div>
+      </div>
+
+      <!-- 麓镇店 -->
+      <div class="store-block">
+        <div class="store-block-header">
+          <div class="store-block-name">🏪 麓镇店</div>
+          <div class="store-block-meta">天府新区南部 · 目标4月底4.3+</div>
+          <div class="store-block-score">
+            <span class="score-chip red">当前3.9⭐</span>
+            <span class="score-chip gray">目标4.3+</span>
+          </div>
+        </div>
+        <table class="daily-table">
+          <tr><th width="160">指标</th><th>目标值</th><th>今日实际</th><th>备注</th></tr>
+          <tr>
+            <td>大众点评评分</td>
+            <td class="crit">≥ 4.1（本周）</td>
+            <td><input class="fill-cell" type="text" placeholder="填写评分"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="差评/好评情况"></td>
+          </tr>
+          <tr>
+            <td>今日新增评论</td>
+            <td>≥ 2条/日</td>
+            <td><input class="fill-cell" type="text" placeholder="填写条数"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="好评/差评数量"></td>
+          </tr>
+          <tr>
+            <td>差评回复</td>
+            <td>100%当日回复</td>
+            <td><input class="fill-cell" type="text" placeholder="已回复/待回复"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="主要差评内容"></td>
+          </tr>
+          <tr>
+            <td>今日到店人数</td>
+            <td>—</td>
+            <td><input class="fill-cell" type="text" placeholder="预估人次"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="备注"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 万科天荟店 -->
+      <div class="store-block">
+        <div class="store-block-header">
+          <div class="store-block-name">🏪 万科天荟店</div>
+          <div class="store-block-meta">东郊记忆商圈 · D级门店 · 重点帮扶</div>
+          <div class="store-block-score">
+            <span class="score-chip red">当前4.6⭐ · D级</span>
+            <span class="score-chip gray">目标4.7+</span>
+          </div>
+        </div>
+        <table class="daily-table">
+          <tr><th width="160">指标</th><th>目标值</th><th>今日实际</th><th>备注</th></tr>
+          <tr>
+            <td>大众点评评分</td>
+            <td class="warn">≥ 4.7（6月前）</td>
+            <td><input class="fill-cell" type="text" placeholder="填写评分"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="差评/好评情况"></td>
+          </tr>
+          <tr>
+            <td>今日新增评论</td>
+            <td>≥ 2条/日</td>
+            <td><input class="fill-cell" type="text" placeholder="填写条数"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="好评/差评数量"></td>
+          </tr>
+          <tr>
+            <td>差评回复</td>
+            <td>100%当日回复</td>
+            <td><input class="fill-cell" type="text" placeholder="已回复/待回复"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="主要差评内容"></td>
+          </tr>
+          <tr>
+            <td>整改落地情况</td>
+            <td>逐日推进</td>
+            <td><input class="fill-cell" type="text" placeholder="今日完成项"></td>
+            <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="待完成项"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 孵化园 + 天府二街 -->
+      <div class="store-block">
+        <div class="store-block-header">
+          <div class="store-block-name">🏪 孵化园直营店 + 天府二街直营店</div>
+          <div class="store-block-meta">B级/C级门店 · 日常维稳</div>
+          <div class="store-block-score">
+            <span class="score-chip gray">孵化园4.6⭐</span>
+            <span class="score-chip gray">天府二街4.5⭐</span>
+          </div>
+        </div>
+        <table class="daily-table">
+          <tr><th width="160">指标</th><th>目标值</th><th>孵化园今日</th><th>天府二街今日</th></tr>
+          <tr>
+            <td>大众点评评分</td>
+            <td>维持≥4.6</td>
+            <td><input class="fill-cell" type="text" placeholder="评分"></td>
+            <td><input class="fill-cell" type="text" placeholder="评分"></td>
+          </tr>
+          <tr>
+            <td>今日新增评论</td>
+            <td>≥ 2条/日</td>
+            <td><input class="fill-cell" type="text" placeholder="条数"></td>
+            <td><input class="fill-cell" type="text" placeholder="条数"></td>
+          </tr>
+          <tr>
+            <td>差评回复</td>
+            <td>100%当日回复</td>
+            <td><input class="fill-cell" type="text" placeholder="已/待回复"></td>
+            <td><input class="fill-cell" type="text" placeholder="已/待回复"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 平台产品数据 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--blue)">②</div>
+        <div class="section-title">平台产品 · 今日数据</div>
+        <div class="section-sub">次卡 / 黑钻月福利卡</div>
+      </div>
+      <table class="action-table">
+        <tr>
+          <th width="180">产品</th>
+          <th>阶段目标</th>
+          <th>今日新增销量</th>
+          <th>累计销量</th>
+          <th>备注</th>
+        </tr>
+        <tr>
+          <td><strong>平台次卡</strong><br><small>150代200·不限张数</small></td>
+          <td>月均1500张</td>
+          <td><input class="fill-cell" type="text" placeholder="张数"></td>
+          <td><input class="fill-cell" type="text" placeholder="累计张数"></td>
+          <td><input class="fill-cell" style="min-width:100px" type="text" placeholder="备注"></td>
+        </tr>
+        <tr>
+          <td><strong>黑钻月福利卡</strong><br><small>¥99·12款肉产品</small></td>
+          <td>月均100张</td>
+          <td><input class="fill-cell" type="text" placeholder="张数"></td>
+          <td><input class="fill-cell" type="text" placeholder="累计张数"></td>
+          <td><input class="fill-cell" style="min-width:100px" type="text" placeholder="备注"></td>
+        </tr>
+        <tr>
+          <td><strong>私域群新增</strong></td>
+          <td>日均+10人</td>
+          <td><input class="fill-cell" type="text" placeholder="人数"></td>
+          <td><input class="fill-cell" type="text" placeholder="累计人数"></td>
+          <td><input class="fill-cell" style="min-width:100px" type="text" placeholder="备注"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 今日行动与明日计划 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--orange)">③</div>
+        <div class="section-title">今日行动 · 明日计划</div>
+      </div>
+      <div class="summary-row">
+        <h4>✅ 今日已完成事项</h4>
+        <textarea placeholder="例：麓镇店差评整改会议完成，召集店长确认3项服务流程优化&#10;万科天荟店完成商家主页主图更新&#10;孵化园邀请2位顾客评论并截图确认..."></textarea>
+      </div>
+      <div class="summary-row">
+        <h4>⚠️ 今日异常 / 风险</h4>
+        <textarea placeholder="例：麓镇店今日收到1条差评，内容为等位超40分钟，已当日回复，整改方案：增加叫号提醒频次..."></textarea>
+      </div>
+      <div class="summary-row">
+        <h4>📌 明日重点计划</h4>
+        <textarea placeholder="例：明日安排孵化园店长参加评论引导培训&#10;天府二街店完成必吃菜【酸菜】打标申请提交&#10;跟进万科天荟店整改项3：服务流程优化..."></textarea>
+      </div>
+    </div>
+
+  </div>
+  <!-- END TAB 2 -->
+
+
+  <!-- ═══════════════════════════ TAB 3：周报 ═══════════════════════════ -->
+  <div class="tab-content" id="content-weekly">
+
+    <div class="print-bar">
+      <button class="btn btn-outline" onclick="window.print()">🖨️ 打印/导出PDF</button>
+      <button class="btn btn-red" onclick="clearForm()">🔄 清空填写</button>
+    </div>
+
+    <!-- 周报头部 -->
+    <div class="daily-header">
+      <div>
+        <div class="daily-date">周报 · <span style="color:var(--red)">第 <input style="width:40px;border:none;border-bottom:2px solid var(--red);font-size:22px;font-weight:900;color:var(--red);text-align:center" type="text" placeholder="1"> 周</span></div>
+        <div class="daily-meta">
+          <input style="border:none;border-bottom:1px dashed #ccc;font-size:13px;color:var(--gray);width:200px" type="text" placeholder="填写周期：如 4月7日—4月13日">
+        </div>
+      </div>
+      <div class="daily-phase-tag">🔴 第一阶段 · 4—5月 · 诊断分析期</div>
+    </div>
+
+    <!-- 周KPI看板 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--red)">①</div>
+        <div class="section-title">本周核心KPI完成情况</div>
+      </div>
+      <div class="week-kpi-grid">
+        <div class="wkpi-card">
+          <div class="wkpi-label">麓镇店评分</div>
+          <div class="wkpi-target">本阶段目标：4.3+</div>
+          <input class="wkpi-input" type="text" placeholder="填写本周评分">
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-fill" id="pb-luzhou" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="wkpi-card">
+          <div class="wkpi-label">万科天荟评分</div>
+          <div class="wkpi-target">本阶段目标：4.7+</div>
+          <input class="wkpi-input" type="text" placeholder="填写本周评分">
+        </div>
+        <div class="wkpi-card">
+          <div class="wkpi-label">次卡累计销量</div>
+          <div class="wkpi-target">月目标：3000张</div>
+          <input class="wkpi-input" type="text" placeholder="填写累计张数">
+        </div>
+        <div class="wkpi-card">
+          <div class="wkpi-label">黑钻月福利卡</div>
+          <div class="wkpi-target">月目标：200张</div>
+          <input class="wkpi-input" type="text" placeholder="填写累计张数">
+        </div>
+        <div class="wkpi-card">
+          <div class="wkpi-label">本周新增评论</div>
+          <div class="wkpi-target">周目标：≥50条（4店合计）</div>
+          <input class="wkpi-input" type="text" placeholder="填写条数">
+        </div>
+        <div class="wkpi-card">
+          <div class="wkpi-label">差评回复率</div>
+          <div class="wkpi-target">目标：100%</div>
+          <input class="wkpi-input" type="text" placeholder="填写百分比">
+        </div>
+        <div class="wkpi-card">
+          <div class="wkpi-label">私域群总人数</div>
+          <div class="wkpi-target">本月目标：800人</div>
+          <input class="wkpi-input" type="text" placeholder="填写人数">
+        </div>
+        <div class="wkpi-card">
+          <div class="wkpi-label">回头客指数</div>
+          <div class="wkpi-target">当前：80.88%→目标81%</div>
+          <input class="wkpi-input" type="text" placeholder="填写指数%">
+        </div>
+      </div>
+    </div>
+
+    <!-- 4店周报 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--green)">②</div>
+        <div class="section-title">4门店本周数据汇总</div>
+      </div>
+      <table class="action-table">
+        <tr>
+          <th>门店</th>
+          <th>评分变化</th>
+          <th>本周新增评论</th>
+          <th>差评数/已回复</th>
+          <th>整改进度</th>
+          <th>状态</th>
+        </tr>
+        <tr>
+          <td><strong>麓镇店</strong> 🔴</td>
+          <td><input class="fill-cell" type="text" placeholder="如：3.9→4.0"></td>
+          <td><input class="fill-cell" type="text" placeholder="条数"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：2/2"></td>
+          <td><input class="fill-cell" style="min-width:120px" type="text" placeholder="整改完成项"></td>
+          <td><select class="fill-cell"><option>进行中</option><option>达标</option><option>风险</option></select></td>
+        </tr>
+        <tr>
+          <td><strong>万科天荟</strong> 🔴</td>
+          <td><input class="fill-cell" type="text" placeholder="如：4.6→4.6"></td>
+          <td><input class="fill-cell" type="text" placeholder="条数"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：1/1"></td>
+          <td><input class="fill-cell" style="min-width:120px" type="text" placeholder="整改完成项"></td>
+          <td><select class="fill-cell"><option>进行中</option><option>达标</option><option>风险</option></select></td>
+        </tr>
+        <tr>
+          <td><strong>孵化园</strong></td>
+          <td><input class="fill-cell" type="text" placeholder="如：4.6→4.6"></td>
+          <td><input class="fill-cell" type="text" placeholder="条数"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：0/0"></td>
+          <td><input class="fill-cell" style="min-width:120px" type="text" placeholder="—"></td>
+          <td><select class="fill-cell"><option>正常</option><option>达标</option><option>风险</option></select></td>
+        </tr>
+        <tr>
+          <td><strong>天府二街</strong></td>
+          <td><input class="fill-cell" type="text" placeholder="如：4.5→4.5"></td>
+          <td><input class="fill-cell" type="text" placeholder="条数"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：1/1"></td>
+          <td><input class="fill-cell" style="min-width:120px" type="text" placeholder="—"></td>
+          <td><select class="fill-cell"><option>正常</option><option>达标</option><option>风险</option></select></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 本周行动完成情况 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--orange)">③</div>
+        <div class="section-title">本周计划完成情况</div>
+      </div>
+      <table class="action-table">
+        <tr>
+          <th width="280">本周任务</th>
+          <th>责任人</th>
+          <th>完成情况</th>
+          <th>状态</th>
+        </tr>
+        <tr>
+          <td>4家门店现状诊断会</td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="填写进展"></td>
+          <td><select class="fill-cell"><option>✅ 完成</option><option>⏳ 进行中</option><option>❌ 未完成</option></select></td>
+        </tr>
+        <tr>
+          <td>万科天荟差评整改方案</td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="填写进展"></td>
+          <td><select class="fill-cell"><option>✅ 完成</option><option>⏳ 进行中</option><option>❌ 未完成</option></select></td>
+        </tr>
+        <tr>
+          <td>商家主页信息完善/主图更新</td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="填写进展"></td>
+          <td><select class="fill-cell"><option>✅ 完成</option><option>⏳ 进行中</option><option>❌ 未完成</option></select></td>
+        </tr>
+        <tr>
+          <td>建立评论监控日报机制</td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="填写进展"></td>
+          <td><select class="fill-cell"><option>✅ 完成</option><option>⏳ 进行中</option><option>❌ 未完成</option></select></td>
+        </tr>
+        <tr>
+          <td>必吃菜【酸菜】【羊肉串】打标签</td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="填写进展"></td>
+          <td><select class="fill-cell"><option>✅ 完成</option><option>⏳ 进行中</option><option>❌ 未完成</option></select></td>
+        </tr>
+        <tr>
+          <td>全员服务培训</td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" style="min-width:160px" type="text" placeholder="填写进展"></td>
+          <td><select class="fill-cell"><option>✅ 完成</option><option>⏳ 进行中</option><option>❌ 未完成</option></select></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 下周计划 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--purple)">④</div>
+        <div class="section-title">下周重点计划</div>
+      </div>
+      <table class="action-table">
+        <tr>
+          <th width="280">计划任务</th>
+          <th>责任人</th>
+          <th>预期完成时间</th>
+          <th>优先级</th>
+        </tr>
+        <tr>
+          <td><input class="fill-cell" style="min-width:220px" type="text" placeholder="填写下周任务"></td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：4月17日"></td>
+          <td><select class="fill-cell"><option>🔴 高</option><option>🟡 中</option><option>⚪ 低</option></select></td>
+        </tr>
+        <tr>
+          <td><input class="fill-cell" style="min-width:220px" type="text" placeholder="填写下周任务"></td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：4月18日"></td>
+          <td><select class="fill-cell"><option>🔴 高</option><option>🟡 中</option><option>⚪ 低</option></select></td>
+        </tr>
+        <tr>
+          <td><input class="fill-cell" style="min-width:220px" type="text" placeholder="填写下周任务"></td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：4月20日"></td>
+          <td><select class="fill-cell"><option>🔴 高</option><option>🟡 中</option><option>⚪ 低</option></select></td>
+        </tr>
+        <tr>
+          <td><input class="fill-cell" style="min-width:220px" type="text" placeholder="填写下周任务"></td>
+          <td><input class="fill-cell" type="text" placeholder="填写"></td>
+          <td><input class="fill-cell" type="text" placeholder="如：4月21日"></td>
+          <td><select class="fill-cell"><option>🔴 高</option><option>🟡 中</option><option>⚪ 低</option></select></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 本周总结 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num" style="background:var(--dark)">⑤</div>
+        <div class="section-title">本周总结 · 问题与亮点</div>
+      </div>
+      <div class="summary-row">
+        <h4>🌟 本周亮点</h4>
+        <textarea placeholder="例：麓镇店本周评分从3.9提升至4.0，整改效果开始显现；次卡上线首日销量达120张，超过预期..."></textarea>
+      </div>
+      <div class="summary-row">
+        <h4>⚠️ 本周风险 / 问题</h4>
+        <textarea placeholder="例：万科天荟本周收到3条差评，集中在服务响应慢，需下周重点跟进；次卡推广渠道覆盖不足..."></textarea>
+      </div>
+      <div class="summary-row">
+        <h4>🔧 下周调整建议</h4>
+        <textarea placeholder="例：建议增加万科天荟服务人员配置；次卡需同步在私域群发放，减少多系统结算；麓镇店安排神秘顾客体验..."></textarea>
+      </div>
+    </div>
+
+  </div>
+  <!-- END TAB 3 -->
+
+</div><!-- END CONTAINER -->
+
+<script>
+  function switchTab(name) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('content-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+  function clearForm() {
+    if (confirm('确认清空所有填写内容？')) {
+      document.querySelectorAll('input[type=text], textarea, select').forEach(el => {
+        if (el.tagName === 'SELECT') { el.selectedIndex = 0; }
+        else if (el.tagName === 'TEXTAREA') { el.value = ''; }
+        else { el.value = ''; }
+      });
+    }
+  }
+  // 自动更新日期
+  const d = new Date();
+  const months = ['一','二','三','四','五','六','七','八','九','十','十一','十二'];
+  const el = document.getElementById('today-date');
+  if (el) el.textContent = `2026年${d.getMonth()+1}月${d.getDate()}日`;
+</script>
+</body>
+</html>
