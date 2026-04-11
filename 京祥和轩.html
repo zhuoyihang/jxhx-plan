@@ -1723,6 +1723,36 @@
   </div>
   <!-- END TAB 4 -->
 
+  <!-- ════════════════════ 访问签到表 ════════════════════ -->
+  <div style="max-width:1100px;margin:0 auto;padding:16px 24px 40px">
+    <div style="background:var(--gray-light);border-radius:14px;padding:20px 24px;border:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:20px">📋</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:var(--dark)">访问签到</div>
+            <div style="font-size:11px;color:var(--gray)">查看此页面后请签到，记录查阅情况</div>
+          </div>
+        </div>
+        <div id="signin-count" style="font-size:12px;color:var(--gray);background:white;border:1px solid var(--border);border-radius:8px;padding:4px 12px"></div>
+      </div>
+      <!-- 签到表单 -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:flex-end">
+        <div style="flex:0 0 120px">
+          <div style="font-size:11px;color:var(--gray);margin-bottom:4px">姓名 <span style="color:var(--red)">*</span></div>
+          <input id="signin-name" type="text" placeholder="你的名字" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none">
+        </div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:11px;color:var(--gray);margin-bottom:4px">备注（可选）</div>
+          <input id="signin-note" type="text" placeholder="例：在看五一营销方案 / 老板要求查看周报" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none">
+        </div>
+        <button onclick="addSignin()" style="flex-shrink:0;padding:8px 20px;background:var(--red);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">✍️ 签到</button>
+      </div>
+      <!-- 签到记录列表 -->
+      <div id="signin-list" style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;background:white"></div>
+    </div>
+  </div>
+
 </div><!-- END CONTAINER -->
 
 <script>
@@ -2048,7 +2078,88 @@
     document.getElementById('history-modal').addEventListener('click', function(e) {
       if (e.target === this) closeModal();
     });
-  })();
-</script>
+  });
+
+  /* ─────────────────────────────────────────────
+     访问签到
+  ───────────────────────────────────────────── */
+  const SIGNIN_KEY = 'jxhx_signin_records';
+
+  function getSignins() {
+    try { return JSON.parse(localStorage.getItem(SIGNIN_KEY)) || []; } catch(e) { return []; }
+  }
+  function saveSignins(list) {
+    localStorage.setItem(SIGNIN_KEY, JSON.stringify(list));
+  }
+  function addSignin() {
+    const nameInput = document.getElementById('signin-name');
+    const noteInput = document.getElementById('signin-note');
+    const name = nameInput.value.trim();
+    if (!name) { nameInput.style.borderColor = 'var(--red)'; nameInput.focus(); setTimeout(() => nameInput.style.borderColor = 'var(--border)', 1500); return; }
+    const list = getSignins();
+    list.unshift({
+      name,
+      note: noteInput.value.trim(),
+      time: new Date().toLocaleString('zh-CN'),
+      ts: Date.now()
+    });
+    // 最多保留200条
+    if (list.length > 200) list.length = 200;
+    saveSignins(list);
+    nameInput.value = '';
+    noteInput.value = '';
+    renderSignins();
+    showToast('签到成功 ✅');
+  }
+  function renderSignins() {
+    const list = getSignins();
+    const container = document.getElementById('signin-list');
+    const countEl = document.getElementById('signin-count');
+    // 统计今日签到人数
+    const today = new Date().toLocaleDateString('zh-CN');
+    const todayCount = list.filter(r => new Date(r.ts).toLocaleDateString('zh-CN') === today).length;
+    countEl.textContent = today > 0 ? `今日 ${todayCount} 人 · 共 ${list.length} 条记录` : `共 ${list.length} 条记录`;
+    if (!list.length) {
+      container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--gray);font-size:13px">暂无签到记录，成为第一个签到的吧 👋</div>';
+      return;
+    }
+    // 按日期分组
+    const groups = {};
+    list.forEach(r => {
+      const d = new Date(r.ts).toLocaleDateString('zh-CN');
+      if (!groups[d]) groups[d] = [];
+      groups[d].push(r);
+    });
+    let html = '';
+    Object.keys(groups).forEach(date => {
+      const isToday = date === today;
+      html += `<div style="padding:10px 14px 4px;font-size:11px;font-weight:700;color:${isToday ? 'var(--red)' : 'var(--gray)'};background:${isToday ? 'var(--red-light)' : 'transparent'};position:sticky;top:0;z-index:1">${isToday ? '🔴 ' : ''}${date}</div>`;
+      groups[date].forEach(r => {
+        const timeStr = new Date(r.ts).toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'});
+        // 为不同人分配颜色
+        const colors = ['#C8282D','#1565C0','#2E8B57','#E8780A','#6A1B9A','#D4A017','#00838F','#AD1457'];
+        let hash = 0;
+        for (let i = 0; i < r.name.length; i++) hash = r.name.charCodeAt(i) + ((hash << 5) - hash);
+        const color = colors[Math.abs(hash) % colors.length];
+        html += `<div style="display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid #f5f5f5;font-size:13px">
+          <div style="width:32px;height:32px;border-radius:50%;background:${color}15;color:${color};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0">${r.name[0]}</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-weight:700">${r.name}</span>
+              <span style="font-size:11px;color:var(--gray)">${timeStr}</span>
+            </div>
+            ${r.note ? `<div style="font-size:11px;color:var(--gray);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.note}</div>` : ''}
+          </div>
+        </div>`;
+      });
+    });
+    container.innerHTML = html;
+  }
+  // 初始化渲染
+  renderSignins();
+  // 回车签到
+  document.getElementById('signin-name').addEventListener('keydown', e => { if (e.key === 'Enter') addSignin(); });
+  document.getElementById('signin-note').addEventListener('keydown', e => { if (e.key === 'Enter') addSignin(); });
+})();
 </body>
 </html>
