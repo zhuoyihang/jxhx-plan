@@ -451,6 +451,7 @@
     <div class="cover-tab active" onclick="switchTab('annual')">📋 全年目标拆解</div>
     <div class="cover-tab" onclick="switchTab('daily')">📅 日报模板</div>
     <div class="cover-tab" onclick="switchTab('weekly')">📊 周报模板</div>
+    <div class="cover-tab" onclick="switchTab('history')">🗂️ 历史周报</div>
   </div>
 </div>
 
@@ -461,6 +462,7 @@
     <div class="tab-btn active" id="tab-annual" onclick="switchTab('annual')">📋 全年目标拆解</div>
     <div class="tab-btn" id="tab-daily"  onclick="switchTab('daily')">📅 日报模板</div>
     <div class="tab-btn" id="tab-weekly" onclick="switchTab('weekly')">📊 周报模板</div>
+    <div class="tab-btn" id="tab-history" onclick="switchTab('history')">🗂️ 历史周报 <span id="history-count-badge" style="display:none;background:var(--red);color:white;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:4px">0</span></div>
   </div>
 
 
@@ -1056,7 +1058,9 @@
 
     <div class="print-bar">
       <button class="btn btn-outline" onclick="window.print()">🖨️ 打印 / 导出PDF</button>
-      <button class="btn btn-red" onclick="clearForm()">🔄 清空填写</button>
+      <button class="btn btn-outline" style="color:var(--blue);border-color:var(--blue)" onclick="exportWeekly()">📥 导出备份</button>
+      <button class="btn btn-red" onclick="saveWeekly()">💾 保存本周记录</button>
+      <button class="btn btn-outline" onclick="clearWeeklyForm()">🔄 清空填写</button>
     </div>
 
     <!-- 周报头部 -->
@@ -1399,7 +1403,7 @@
     </div>
 
     <!-- ④ 本周任务完成情况 -->
-    <div class="section">
+    <div class="section" id="weekly-task-section">
       <div class="section-header">
         <div class="section-num" style="background:var(--orange)">④</div>
         <div class="section-title">这周计划的事干完了没？</div>
@@ -1531,40 +1535,376 @@
   </div>
   <!-- END TAB 3 -->
 
+
+  <!-- ════════════════════ TAB 4：历史周报 ════════════════════ -->
+  <div class="tab-content" id="content-history">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;margin-top:8px">
+      <div>
+        <div style="font-size:20px;font-weight:900">🗂️ 历史周报存档</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px">数据保存在本浏览器 · 换设备或清除缓存会丢失 · 建议定期导出备份</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-outline" style="font-size:12px" onclick="importWeekly()">📤 导入备份JSON</button>
+        <button class="btn btn-outline" style="font-size:12px;color:var(--red);border-color:var(--red)" onclick="clearAllHistory()">🗑️ 清空所有记录</button>
+      </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div id="history-stats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px"></div>
+
+    <!-- 历史列表 -->
+    <div id="history-list">
+      <div style="text-align:center;padding:60px 20px;color:var(--gray)">
+        <div style="font-size:48px;margin-bottom:12px">📭</div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">还没有保存过周报</div>
+        <div style="font-size:13px">填完周报后点「💾 保存本周记录」，数据就会出现在这里</div>
+      </div>
+    </div>
+
+    <!-- 详情弹窗 -->
+    <div id="history-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:1000;overflow-y:auto;padding:20px">
+      <div style="max-width:800px;margin:0 auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+        <div style="background:var(--dark);color:white;padding:20px 28px;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div id="modal-title" style="font-size:18px;font-weight:900"></div>
+            <div id="modal-meta" style="font-size:12px;opacity:0.7;margin-top:4px"></div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button onclick="exportSingleWeekly(currentViewKey)" style="background:rgba(255,255,255,0.15);border:none;color:white;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:12px">📥 导出</button>
+            <button onclick="closeModal()" style="background:rgba(255,255,255,0.15);border:none;color:white;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700">✕ 关闭</button>
+          </div>
+        </div>
+        <div id="modal-body" style="padding:28px;max-height:70vh;overflow-y:auto"></div>
+      </div>
+    </div>
+  </div>
+  <!-- END TAB 4 -->
+
 </div><!-- END CONTAINER -->
 
 <script>
-  // Tab 切换
+  /* ─────────────────────────────────────────────
+     1. Tab 切换
+  ───────────────────────────────────────────── */
   function switchTab(name) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn, .cover-tab').forEach(el => el.classList.remove('active'));
     document.getElementById('content-' + name).classList.add('active');
     const btn = document.getElementById('tab-' + name);
     if (btn) btn.classList.add('active');
-    // cover tab 同步
     const coverTabs = document.querySelectorAll('.cover-tab');
-    const map = { annual: 0, daily: 1, weekly: 2 };
+    const map = { annual: 0, daily: 1, weekly: 2, history: 3 };
     if (coverTabs[map[name]]) coverTabs[map[name]].classList.add('active');
+    if (name === 'history') renderHistory();
   }
 
-  // 清空表单
+  /* ─────────────────────────────────────────────
+     2. 仅清空周报表单
+  ───────────────────────────────────────────── */
+  function clearWeeklyForm() {
+    if (!confirm('确认清空周报所有填写内容？')) return;
+    const weekly = document.getElementById('content-weekly');
+    weekly.querySelectorAll('input[type=text], textarea, select').forEach(el => {
+      if (el.tagName === 'SELECT') el.selectedIndex = 0;
+      else el.value = '';
+    });
+  }
+
+  // 日报清空（保留原来的 clearForm 供日报用）
   function clearForm() {
-    if (confirm('确认清空当前页面所有填写内容？')) {
-      document.querySelectorAll('input[type=text], textarea, select').forEach(el => {
-        if (el.tagName === 'SELECT') el.selectedIndex = 0;
-        else el.value = '';
-      });
-    }
+    if (!confirm('确认清空当前页面所有填写内容？')) return;
+    document.querySelectorAll('input[type=text], textarea, select').forEach(el => {
+      if (el.tagName === 'SELECT') el.selectedIndex = 0;
+      else el.value = '';
+    });
   }
 
-  // 自动设置今日日期
-  (function() {
+  /* ─────────────────────────────────────────────
+     3. 采集周报数据
+  ───────────────────────────────────────────── */
+  function collectWeeklyData() {
+    const weekly = document.getElementById('content-weekly');
+    const fields = [];
+    weekly.querySelectorAll('input[type=text], textarea, select').forEach((el, i) => {
+      fields.push({
+        tag: el.tagName,
+        ph: el.placeholder || el.options?.[0]?.text || '',
+        val: el.tagName === 'SELECT' ? el.options[el.selectedIndex]?.text : el.value
+      });
+    });
+    return fields;
+  }
+
+  /* ─────────────────────────────────────────────
+     4. 保存本周周报
+  ───────────────────────────────────────────── */
+  const STORAGE_KEY = 'jxhx_weekly_records';
+
+  function saveWeekly() {
+    const weekly = document.getElementById('content-weekly');
+    // 取第几周
+    const weekNumInput = weekly.querySelector('input[placeholder="1"]');
+    const weekNum = weekNumInput ? (weekNumInput.value.trim() || '?') : '?';
+    const periodInput = weekly.querySelector('input[placeholder="填写周期：如 4月7日 — 4月13日"]');
+    const period = periodInput ? (periodInput.value.trim() || '') : '';
+    const authorInput = weekly.querySelector('input[placeholder="填写姓名"]');
+    const author = authorInput ? (authorInput.value.trim() || '') : '';
+
+    const key = `week_${weekNum}_${Date.now()}`;
+    const record = {
+      key,
+      weekNum,
+      period,
+      author,
+      savedAt: new Date().toLocaleString('zh-CN'),
+      timestamp: Date.now(),
+      fields: collectWeeklyData()
+    };
+
+    const all = getAll();
+    // 若同周已有记录，询问是否覆盖
+    const existIdx = all.findIndex(r => r.weekNum === weekNum && weekNum !== '?');
+    if (existIdx >= 0) {
+      if (!confirm(`第 ${weekNum} 周的记录已存在（保存于 ${all[existIdx].savedAt}），是否用当前内容覆盖？`)) return;
+      all[existIdx] = record;
+    } else {
+      all.unshift(record);
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+    updateBadge();
+    showToast(`✅ 第 ${weekNum} 周周报已保存！共 ${all.length} 条记录`);
+  }
+
+  function getAll() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+
+  /* ─────────────────────────────────────────────
+     5. 导出 / 导入
+  ───────────────────────────────────────────── */
+  function exportWeekly() {
+    const all = getAll();
+    if (!all.length) { showToast('还没有保存任何周报，先保存再导出吧'); return; }
+    download('京祥和轩_周报备份_' + new Date().toLocaleDateString('zh-CN').replace(/\//g,'-') + '.json',
+             JSON.stringify(all, null, 2));
+    showToast('📥 已导出 ' + all.length + ' 条记录');
+  }
+
+  function exportSingleWeekly(key) {
+    const rec = getAll().find(r => r.key === key);
+    if (!rec) return;
+    download(`京祥和轩_第${rec.weekNum}周周报.json`, JSON.stringify(rec, null, 2));
+  }
+
+  function importWeekly() {
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = '.json';
+    inp.onchange = e => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          const arr = Array.isArray(data) ? data : [data];
+          const all = getAll();
+          let added = 0;
+          arr.forEach(rec => {
+            if (!rec.key) rec.key = 'import_' + Date.now() + '_' + Math.random();
+            if (!all.find(r => r.key === rec.key)) { all.push(rec); added++; }
+          });
+          all.sort((a,b) => b.timestamp - a.timestamp);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+          updateBadge(); renderHistory();
+          showToast(`✅ 导入成功，新增 ${added} 条记录`);
+        } catch { showToast('❌ 文件格式有误，请导入正确的 JSON 文件'); }
+      };
+      reader.readAsText(file);
+    };
+    inp.click();
+  }
+
+  function download(name, content) {
+    const a = document.createElement('a');
+    a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(content);
+    a.download = name; a.click();
+  }
+
+  /* ─────────────────────────────────────────────
+     6. 清空全部历史
+  ───────────────────────────────────────────── */
+  function clearAllHistory() {
+    const all = getAll();
+    if (!all.length) { showToast('没有记录可以清空'); return; }
+    if (!confirm(`确认删除全部 ${all.length} 条周报记录？此操作无法恢复，建议先导出备份！`)) return;
+    localStorage.removeItem(STORAGE_KEY);
+    updateBadge(); renderHistory();
+    showToast('🗑️ 已清空所有记录');
+  }
+
+  /* ─────────────────────────────────────────────
+     7. 渲染历史列表
+  ───────────────────────────────────────────── */
+  function renderHistory() {
+    const all = getAll();
+    const statsEl = document.getElementById('history-stats');
+    const listEl  = document.getElementById('history-list');
+
+    // 统计卡片
+    statsEl.innerHTML = `
+      <div class="goal-card blue" style="min-width:0">
+        <div class="goal-label">📦 已保存周报</div>
+        <div class="goal-target">${all.length} 条</div>
+        <div class="goal-now">存储在本浏览器</div>
+      </div>
+      <div class="goal-card green" style="min-width:0">
+        <div class="goal-label">📅 最新一条</div>
+        <div class="goal-target" style="font-size:16px">${all[0] ? '第' + all[0].weekNum + '周' : '—'}</div>
+        <div class="goal-now">${all[0] ? all[0].savedAt : '暂无记录'}</div>
+      </div>
+      <div class="goal-card orange" style="min-width:0">
+        <div class="goal-label">💾 存储占用</div>
+        <div class="goal-target" style="font-size:16px">${getStorageSize()}</div>
+        <div class="goal-now">浏览器本地存储</div>
+      </div>`;
+
+    if (!all.length) {
+      listEl.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--gray)">
+        <div style="font-size:48px;margin-bottom:12px">📭</div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">还没有保存过周报</div>
+        <div style="font-size:13px">填完周报后点「💾 保存本周记录」，数据就会出现在这里</div>
+      </div>`;
+      return;
+    }
+
+    listEl.innerHTML = all.map(rec => {
+      const kpis = extractKPIs(rec.fields);
+      return `<div style="background:white;border-radius:14px;border:1px solid var(--border);margin-bottom:12px;overflow:hidden;border-left:4px solid var(--red)">
+        <div style="padding:14px 20px;display:flex;align-items:center;flex-wrap:wrap;gap:10px">
+          <div style="flex:1;min-width:200px">
+            <div style="font-size:16px;font-weight:900">第 ${rec.weekNum} 周周报 ${rec.period ? '· <span style=\'color:var(--gray);font-weight:400;font-size:13px\'>' + rec.period + '</span>' : ''}</div>
+            <div style="font-size:12px;color:var(--gray);margin-top:3px">
+              保存于 ${rec.savedAt} ${rec.author ? '· 填写人：' + rec.author : ''}
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            ${kpis}
+            <button onclick="viewRecord('${rec.key}')" style="background:var(--red);color:white;border:none;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700">👁️ 查看</button>
+            <button onclick="deleteRecord('${rec.key}')" style="background:white;color:var(--gray);border:1px solid var(--border);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:12px">🗑️</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function extractKPIs(fields) {
+    // 从保存的字段中提取有意义的值做预览标签
+    const tags = [];
+    fields.forEach(f => {
+      if (!f.val || f.val === f.ph) return;
+      if (/麓镇.*评分|麓镇.*本周/.test(f.ph) && f.val.match(/[\d.]+/)) {
+        tags.push(`<span style="background:var(--red-light);color:var(--red);padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700">麓镇 ${f.val}</span>`);
+      }
+      if (/万科.*评分|万科.*本周/.test(f.ph) && f.val.match(/[\d.]+/)) {
+        tags.push(`<span style="background:var(--orange-light);color:var(--orange);padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700">万科 ${f.val}</span>`);
+      }
+      if (/次卡.*本周|本周.*次卡/.test(f.ph) && f.val.match(/[\d]+/)) {
+        tags.push(`<span style="background:var(--blue-light);color:var(--blue);padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700">次卡 ${f.val}张</span>`);
+      }
+    });
+    return tags.slice(0,3).join('');
+  }
+
+  /* ─────────────────────────────────────────────
+     8. 查看详情弹窗
+  ───────────────────────────────────────────── */
+  let currentViewKey = '';
+  function viewRecord(key) {
+    const rec = getAll().find(r => r.key === key);
+    if (!rec) return;
+    currentViewKey = key;
+    document.getElementById('modal-title').textContent = `第 ${rec.weekNum} 周周报 ${rec.period ? '· ' + rec.period : ''}`;
+    document.getElementById('modal-meta').textContent = `保存于 ${rec.savedAt}${rec.author ? ' · 填写人：' + rec.author : ''}`;
+
+    // 渲染字段
+    const filled = rec.fields.filter(f => f.val && f.val !== f.ph && f.val.trim());
+    if (!filled.length) {
+      document.getElementById('modal-body').innerHTML = '<div style="color:var(--gray);text-align:center;padding:40px">这份周报没有填写任何内容</div>';
+    } else {
+      document.getElementById('modal-body').innerHTML = `
+        <div style="display:grid;gap:10px">
+          ${filled.map(f => `
+            <div style="background:#FAFAFA;border-radius:8px;padding:12px 16px;border-left:3px solid var(--border)">
+              <div style="font-size:11px;color:var(--gray);margin-bottom:5px">${escHtml(f.ph.split('\n')[0].substring(0,60))}</div>
+              <div style="font-size:13px;color:var(--dark);font-weight:500;white-space:pre-wrap">${escHtml(f.val)}</div>
+            </div>`).join('')}
+        </div>`;
+    }
+    document.getElementById('history-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('history-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function deleteRecord(key) {
+    if (!confirm('确认删除这条周报记录？')) return;
+    const all = getAll().filter(r => r.key !== key);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+    updateBadge(); renderHistory();
+    showToast('🗑️ 已删除');
+  }
+
+  /* ─────────────────────────────────────────────
+     9. 工具函数
+  ───────────────────────────────────────────── */
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function getStorageSize() {
+    try {
+      const s = localStorage.getItem(STORAGE_KEY) || '';
+      const kb = (new Blob([s]).size / 1024).toFixed(1);
+      return kb + ' KB';
+    } catch { return '—'; }
+  }
+
+  function updateBadge() {
+    const n = getAll().length;
+    const b = document.getElementById('history-count-badge');
+    if (!b) return;
+    b.textContent = n; b.style.display = n ? 'inline' : 'none';
+  }
+
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:white;padding:12px 24px;border-radius:30px;font-size:14px;font-weight:700;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,0.25);pointer-events:none;max-width:90vw;text-align:center';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+  }
+
+  /* ─────────────────────────────────────────────
+     10. 自动设置今日日期 & 初始化
+  ───────────────────────────────────────────── */
+  (function init() {
     const d = new Date();
     const weekDays = ['日','一','二','三','四','五','六'];
     const el = document.getElementById('today-date');
     if (el) el.textContent = `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
     const el2 = document.getElementById('today-day');
     if (el2) el2.innerHTML = `星期${weekDays[d.getDay()]} &nbsp;·&nbsp; 执行阶段：第一阶段（4—5月 诊断分析期）`;
+
+    // 初始化历史角标
+    updateBadge();
+
+    // 点弹窗外关闭
+    document.getElementById('history-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
   })();
 </script>
 </body>
